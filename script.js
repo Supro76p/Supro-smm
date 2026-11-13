@@ -66,10 +66,88 @@ document.querySelectorAll('[data-service]').forEach(link => {
   });
 });
 
-document.getElementById('demoNotice').addEventListener('click', () => {
-  showToast('Preview only — account features will be added in Phase 2.');
-  closeModal();
+
+// Authentication system
+let authMode = 'login';
+
+const authForm = document.getElementById('authForm');
+const fullNameLabel = document.getElementById('fullNameLabel');
+const authFullName = document.getElementById('authFullName');
+const authTitle = document.getElementById('modalTitle');
+const authDescription = document.getElementById('authDescription');
+const authSubmit = document.getElementById('authSubmit');
+const authSwitchText = document.getElementById('authSwitchText');
+const authToggle = document.getElementById('authToggle');
+
+function setAuthMode(mode) {
+  authMode = mode;
+  const isSignup = mode === 'signup';
+
+  fullNameLabel.hidden = !isSignup;
+  authTitle.textContent = isSignup ? 'Create account.' : 'Welcome back.';
+  authDescription.textContent = isSignup
+    ? 'Create your Supro SMM account.'
+    : 'Sign in to your Supro SMM account.';
+  authSubmit.textContent = isSignup ? 'Create account' : 'Sign in';
+  authSwitchText.textContent = isSignup
+    ? 'Already have an account?'
+    : 'New to Supro SMM?';
+  authToggle.textContent = isSignup ? 'Sign in' : 'Create an account';
+}
+
+authToggle.addEventListener('click', () => {
+  setAuthMode(authMode === 'login' ? 'signup' : 'login');
 });
+
+authForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+
+  authSubmit.disabled = true;
+
+  try {
+    if (authMode === 'signup') {
+      const fullName = authFullName.value.trim();
+
+      if (!fullName) {
+        throw new Error('Please enter your full name.');
+      }
+
+      const { error } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: fullName }
+        }
+      });
+
+      if (error) throw error;
+
+      showToast('Registration submitted. Check your email to confirm.');
+      authForm.reset();
+      setAuthMode('login');
+
+    } else {
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      showToast('Signed in successfully.');
+      closeModal();
+    }
+
+  } catch (error) {
+    showToast(error.message || 'Authentication failed.');
+  } finally {
+    authSubmit.disabled = false;
+  }
+});
+;
 // Supabase connection
 const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
