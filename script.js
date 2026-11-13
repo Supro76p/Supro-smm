@@ -70,3 +70,11 @@ document.getElementById('demoNotice').addEventListener('click', () => {
   showToast('Preview only — account features will be added in Phase 2.');
   closeModal();
 });
+// Supabase connection
+const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co/rest/v1/';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
