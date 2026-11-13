@@ -80,8 +80,41 @@
   <footer class="footer section-wrap"><a class="brand" href="#home"><span class="brand-mark">S</span><span>SUPRO<span class="brand-light">SMM</span></span></a><p>© <span id="year"></span> Supro SMM. Demo website — Phase 1.</p><a href="#home" class="back-top">Back to top ↑</a></footer>
 
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div class="modal-mark">S</div><div class="eyebrow">SUPRO SMM ACCOUNT</div><h2 id="modalTitle">Welcome back.</h2><p>This is a design preview. Account access will be added in Phase 2.</p><label>Email address<input type="email" placeholder="you@example.com" disabled></label><label>Password<input type="password" placeholder="••••••••" disabled></label><button class="button button-primary modal-submit" id="demoNotice">Preview only</button><small class="modal-footnote">No information is collected or submitted.</small></div>
-  </div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+
+  <div class="modal-mark">S</div>
+  <div class="eyebrow">SUPRO SMM ACCOUNT</div>
+
+  <h2 id="modalTitle">Welcome back.</h2>
+  <p id="authDescription">Sign in to your Supro SMM account.</p>
+
+  <form id="authForm">
+    <label id="fullNameLabel" hidden>
+      Full name
+      <input type="text" id="authFullName" placeholder="Your full name">
+    </label>
+
+    <label>
+      Email address
+      <input type="email" id="authEmail" placeholder="you@example.com" required>
+    </label>
+
+    <label>
+      Password
+      <input type="password" id="authPassword" placeholder="At least 6 characters" minlength="6" required>
+    </label>
+
+    <button class="button button-primary modal-submit" id="authSubmit" type="submit">
+      Sign in
+    </button>
+  </form>
+
+  <p class="modal-footnote">
+    <span id="authSwitchText">New to Supro SMM?</span>
+    <button type="button" id="authToggle">Create an account</button>
+  </p>
+</div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> 
