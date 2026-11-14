@@ -139,7 +139,11 @@ authForm.addEventListener('submit', async (event) => {
       if (error) throw error;
 
       showToast('Signed in successfully.');
-      closeModal();
+closeModal();
+
+setTimeout(() => {
+  window.location.href = 'dashboard.html';
+}, 700);
     }
 
   } catch (error) {
