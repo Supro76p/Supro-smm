@@ -251,7 +251,18 @@ async function loadDashboard() {
     return;
   }
 
-  const name = user.user_metadata?.full_name || user.email.split('@')[0];
+const { data: profile, error: profileError } = await supabaseClient
+  .from('profiles')
+  .select('full_name, username')
+  .eq('id', user.id)
+  .single();
+
+if (profileError) {
+  console.error(profileError);
+  return;
+}
+
+const name = profile.full_name || profile.username || user.email.split('@')[0];
 
   document.getElementById('welcomeName').textContent = name;
   document.getElementById('profileName').textContent = name;
