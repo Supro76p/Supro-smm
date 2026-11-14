@@ -4,41 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09070f">
+  <meta name="theme-color" content="#08080b">
   <title>Dashboard — Supro SMM</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      background: #09070f;
+      background: #08080b;
       color: #f5f1ff;
       font-family: 'DM Sans', sans-serif;
     }
+
     button { font: inherit; cursor: pointer; }
     .layout { display: flex; min-height: 100vh; }
+
     .sidebar {
       width: 245px;
       padding: 28px 18px;
-      background: #100d19;
-      border-right: 1px solid #282132;
+      background: #100f14;
+      border-right: 1px solid #25212d;
       display: flex;
       flex-direction: column;
     }
+
     .brand {
       font: 700 23px 'Space Grotesk';
       letter-spacing: 1px;
       margin: 0 0 45px 8px;
     }
+
     .brand span { color: #a78bfa; }
+
     .nav-label {
       color: #777083;
       font-size: 10px;
       letter-spacing: 2px;
       margin: 0 10px 12px;
     }
+
     .nav-link {
       display: block;
       padding: 13px 14px;
@@ -47,95 +56,261 @@
       color: #aaa2b8;
       text-decoration: none;
       font-size: 14px;
+      transition: .2s;
     }
+
+    .nav-link:hover {
+      background: #1b1722;
+      color: white;
+    }
+
     .nav-link.active {
       color: white;
-      background: #281d3d;
-      border: 1px solid #48316c;
+      background: #211a2d;
+      border: 1px solid #49365f;
     }
+
     .sidebar-bottom { margin-top: auto; }
+
     .demo-note {
       padding: 14px;
       margin-bottom: 20px;
-      background: #191326;
+      background: #17131e;
       border: 1px solid #302343;
       border-radius: 12px;
       color: #b6a5d5;
       font-size: 11px;
       line-height: 1.6;
     }
+
     .logout {
       width: 100%;
       padding: 13px;
       border-radius: 10px;
       color: #f5a5b5;
-      background: #29151f;
+      background: #21151c;
       border: 1px solid #512536;
     }
-    main { flex: 1; min-width: 0; padding: 38px; }
+
+    .logout:hover { background: #301923; }
+
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 38px;
+    }
+
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
+
     .eyebrow {
       color: #a78bfa;
       font-size: 10px;
       letter-spacing: 2px;
       font-weight: 700;
     }
+
     h1 {
       font: 700 30px 'Space Grotesk';
       margin: 9px 0;
     }
+
     .muted { color: #91899e; font-size: 13px; }
+
     .avatar {
-      width: 43px;
-      height: 43px;
+      width: 45px;
+      height: 45px;
       border-radius: 14px;
       display: grid;
       place-items: center;
-      background: #392451;
-      border: 1px solid #74509a;
+      background: #241a31;
+      border: 1px solid #634a7c;
       font-weight: 800;
       color: #e4d3ff;
     }
-    .welcome {
+
+    /* MIDNIGHT PULSE */
+
+    .pulse {
+      position: relative;
+      overflow: hidden;
       padding: 30px;
-      border: 1px solid #493363;
-      border-radius: 18px;
-      background: linear-gradient(120deg,#21162f,#120e1d 75%);
-      margin-bottom: 25px;
+      border: 1px solid #40304f;
+      border-radius: 19px;
+      background: linear-gradient(125deg, #191321, #100e14 75%);
+      margin-bottom: 24px;
     }
-    .welcome h2 {
-      font: 700 25px 'Space Grotesk';
-      margin: 10px 0;
+
+    .pulse::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      opacity: .08;
+      filter: blur(65px);
+      right: -60px;
+      top: -80px;
+      pointer-events: none;
     }
-    .welcome p { color: #b8adc8; font-size: 13px; }
+
+    .pulse-content { position: relative; z-index: 1; }
+
+    .pulse-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pulse-tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #b8a1dc;
+    }
+
+    .pulse-date {
+      font-size: 11px;
+      color: #8e849b;
+    }
+
+    .pulse h2 {
+      font: 700 27px 'Space Grotesk';
+      margin: 25px 0 8px;
+    }
+
+    .pulse h2 span { color: #c4a7ff; }
+
+    .pulse-description {
+      color: #aaa0b8;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .pulse-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 27px;
+      padding-top: 20px;
+      border-top: 1px solid #302638;
+    }
+
+    .pulse-bottom small {
+      display: block;
+      color: #948ba3;
+      font-size: 10px;
+      letter-spacing: 1px;
+      margin-bottom: 7px;
+    }
+
+    .pulse-bottom strong {
+      font: 600 14px 'Space Grotesk';
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #a78bfa;
+      margin-right: 7px;
+    }
+
+    /* PROFILE HEALTH */
+
+    .health-card {
+      background: #110f15;
+      border: 1px solid #292333;
+      border-radius: 16px;
+      padding: 23px;
+      margin-bottom: 24px;
+    }
+
+    .health-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .health-heading h3 {
+      font: 600 16px 'Space Grotesk';
+      margin: 0;
+    }
+
+    .health-percent {
+      color: #c4a7ff;
+      font: 700 20px 'Space Grotesk';
+    }
+
+    .health-track {
+      height: 7px;
+      border-radius: 20px;
+      background: #28222f;
+      overflow: hidden;
+    }
+
+    .health-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #7650a8, #c4a7ff);
+      transition: width .5s ease;
+    }
+
+    .health-caption {
+      margin: 12px 0 0;
+      color: #92899f;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* STATS */
+
     .stats {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-bottom: 25px;
+      margin-bottom: 24px;
     }
+
     .stat, .panel {
-      background: #110e19;
+      background: #110f15;
       border: 1px solid #292333;
       border-radius: 15px;
       padding: 22px;
     }
-    .stat small { color: #948ba3; font-size: 12px; }
+
+    .stat small {
+      color: #948ba3;
+      font-size: 12px;
+    }
+
     .stat strong {
       display: block;
-      font: 700 27px 'Space Grotesk';
+      font: 700 25px 'Space Grotesk';
       margin-top: 12px;
     }
+
+    .status { color: #a9dfbd; }
+
     .panel h3 {
       font: 600 17px 'Space Grotesk';
       margin: 0 0 20px;
     }
+
     .profile-row {
       display: flex;
       justify-content: space-between;
@@ -143,131 +318,327 @@
       padding: 14px 0;
       border-bottom: 1px solid #282333;
       font-size: 13px;
+      overflow-wrap: anywhere;
     }
+
     .profile-row:last-child { border: 0; }
     .profile-row span { color: #92899f; }
-    .status { color: #9de5bd; }
+
+    .edit-area {
+      border-top: 1px solid #282333;
+      margin-top: 20px;
+      padding-top: 22px;
+    }
+
+    .edit-area h3 { margin-bottom: 18px; }
+
+    .field-label {
+      display: block;
+      color: #aaa2b8;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 17px;
+      background: #09080c;
+      color: white;
+      border: 1px solid #393044;
+      border-radius: 9px;
+      outline: none;
+      font: inherit;
+    }
+
+    .field-input:focus { border-color: #9270c1; }
+
+    .save-btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      color: white;
+      background: #392451;
+      border: 1px solid #74509a;
+    }
+
+    .save-btn:hover { background: #493060; }
+    .save-btn:disabled, .logout:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #625b6c;
+      font-size: 11px;
+      margin-top: 28px;
+    }
+
     @media(max-width:800px) {
       .sidebar { width: 190px; }
       main { padding: 25px 18px; }
       .stats { grid-template-columns: 1fr; }
     }
+
     @media(max-width:560px) {
       .layout { display: block; }
+
       .sidebar {
         width: 100%;
         padding: 19px;
         border-right: 0;
         border-bottom: 1px solid #282132;
       }
+
       .brand { margin: 0 0 20px; }
       .sidebar-bottom { margin-top: 12px; }
       .demo-note { margin-bottom: 10px; }
-      main { padding: 25px 17px; }
-      .topbar { margin-bottom: 25px; }
+      main { padding: 24px 17px; }
+      .topbar { margin-bottom: 24px; }
       h1 { font-size: 25px; }
-      .welcome { padding: 22px; }
+      .pulse { padding: 22px; }
+      .pulse h2 { font-size: 23px; }
+      .health-card { padding: 19px; }
     }
   </style>
 </head>
+
 <body>
 <div class="layout">
+
   <aside class="sidebar">
     <div class="brand">SUPRO<span>SMM</span></div>
+
     <div class="nav-label">WORKSPACE</div>
+
     <a class="nav-link active" href="#overview">◈ Overview</a>
     <a class="nav-link" href="profile.html">◎ Profile Settings</a>
     <a class="nav-link" href="index.html">↗ Main Website</a>
+
     <div class="sidebar-bottom">
-      <div class="demo-note">DEMO MODE<br>This dashboard is a preview. Orders and payments are not enabled.</div>
+      <div class="demo-note">
+        DEMO MODE<br>
+        This dashboard is a preview. Real orders and payments are not enabled.
+      </div>
+
       <button class="logout" id="logoutBtn">↪ Sign out</button>
     </div>
   </aside>
 
   <main id="overview">
+
     <div class="topbar">
       <div>
         <div class="eyebrow">SUPRO SMM / WORKSPACE</div>
         <h1>Dashboard</h1>
         <div class="muted">Your personal account overview.</div>
       </div>
+
       <div class="avatar" id="avatar">S</div>
     </div>
 
-    <section class="welcome">
-      <div class="eyebrow">WELCOME BACK</div>
-      <h2>Hello, <span id="welcomeName">User</span>.</h2>
-      <p>Your Supro SMM workspace is ready.</p>
+    <!-- MIDNIGHT PULSE -->
+
+    <section class="pulse">
+      <div class="pulse-content">
+
+        <div class="pulse-top">
+          <div class="pulse-tag">✦ MIDNIGHT PULSE</div>
+          <div class="pulse-date" id="pulseDate">Loading date...</div>
+        </div>
+
+        <h2 id="greeting">Good evening, <span>there</span>.</h2>
+
+        <p class="pulse-description">
+          Your personal space is ready. Take a moment, stay focused,
+          and make something meaningful today.
+        </p>
+
+        <div class="pulse-bottom">
+          <div>
+            <small>WORKSPACE STATUS</small>
+            <strong><span class="pulse-dot"></span>Personal workspace</strong>
+          </div>
+
+          <div>
+            <small>ACCOUNT</small>
+            <strong id="pulseAccount">Loading...</strong>
+          </div>
+        </div>
+
+      </div>
     </section>
+
+    <!-- PROFILE HEALTH -->
+
+    <section class="health-card">
+      <div class="health-heading">
+        <h3>Profile Health</h3>
+        <div class="health-percent" id="healthPercent">0%</div>
+      </div>
+
+      <div class="health-track">
+        <div class="health-fill" id="healthFill"></div>
+      </div>
+
+      <p class="health-caption" id="healthCaption">
+        Checking your profile information...
+      </p>
+    </section>
+
+    <!-- STATS -->
 
     <section class="stats">
       <div class="stat">
         <small>Account status</small>
         <strong class="status">Active</strong>
       </div>
+
       <div class="stat">
-        <small>Available services</small>
+        <small>Sample services</small>
         <strong>120+</strong>
       </div>
+
       <div class="stat">
-        <small>Total orders</small>
+        <small>Demo orders</small>
         <strong>0</strong>
       </div>
     </section>
 
+    <!-- ACCOUNT INFORMATION -->
+
     <section class="panel" id="profile">
-      <h3>Account information</h3>
+
+      <h3>Account Information</h3>
+
       <div class="profile-row">
         <span>Full name</span>
         <b id="profileName">Loading...</b>
       </div>
+
+      <div class="profile-row">
+        <span>Username</span>
+        <b id="profileUsername">Loading...</b>
+      </div>
+
       <div class="profile-row">
         <span>Email address</span>
         <b id="profileEmail">Loading...</b>
       </div>
+
       <div class="profile-row">
         <span>Account status</span>
-        <b class="status">Verified</b>
+        <b class="status">Active</b>
       </div>
-          <div style="border-top:1px solid #282333; margin-top:20px; padding-top:22px;">
-        <h3>Edit Profile</h3>
+
+      <!-- QUICK EDIT -->
+
+      <div class="edit-area">
+        <h3>Quick Edit</h3>
 
         <form id="editProfileForm">
-          <label style="display:block; color:#aaa2b8; font-size:13px; margin-bottom:8px;">
+
+          <label class="field-label" for="editFullName">
             Full name
           </label>
+
           <input
+            class="field-input"
             type="text"
             id="editFullName"
+            maxlength="60"
             required
-            style="width:100%; padding:13px; margin-bottom:16px; background:#09070f; color:white; border:1px solid #393044; border-radius:9px;"
           >
 
-          <label style="display:block; color:#aaa2b8; font-size:13px; margin-bottom:8px;">
+          <label class="field-label" for="editUsername">
             Username
           </label>
+
           <input
+            class="field-input"
             type="text"
             id="editUsername"
             placeholder="Choose a username"
-            style="width:100%; padding:13px; margin-bottom:18px; background:#09070f; color:white; border:1px solid #393044; border-radius:9px;"
+            maxlength="20"
           >
 
-          <button type="submit" class="logout" style="color:#fff; background:#392451; border-color:#74509a;">
+          <button type="submit" class="save-btn" id="saveBtn">
             Save Changes
           </button>
+
         </form>
       </div>
 
+    </section>
+
+    <div class="footer-note">
+      SUPRO SMM · A personal demo workspace
+    </div>
+
+  </main>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
+
+/* Replace this placeholder with your existing publishable key */
+const SUPABASE_PUBLISHABLE_KEY = 'PASTE_YOUR_EXISTING_PUBLISHABLE_KEY_HERE';
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
+
+/* MIDNIGHT PULSE GREETING */
+
+function updatePulse() {
+  const hour = new Date().getHours();
+
+  let greeting = 'Good evening';
+
+  if (hour >= 5 && hour < 12) {
+    greeting = 'Good morning';
+  } else if (hour >= 12 && hour < 17) {
+    greeting = 'Good afternoon';
+  }
+
+  document.getElementById('greeting').innerHTML =
+    `${greeting}, <span id="greetingName">there</span>.`;
+
+  document.getElementById('pulseDate').textContent =
+    new Intl.DateTimeFormat('en-BD', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date());
+}
+
+/* PROFILE COMPLETION */
+
+function updateProfileHealth(profile, email) {
+  const checks = [
+    Boolean(profile.full_name && profile.full_name.trim()),
+    Boolean(profile.username && profile.username.trim()),
+    Boolean(email)
+  ];
+
+  const completed = checks.filter(Boolean).length;
+  const percent = Math.round((completed / checks.length) * 100);
+
+  document.getElementById('healthPercent').textContent = percent + '%';
+  document.getElementById('healthFill').style.width = percent + '%';
+
+  document.getElementById('healthCaption').textContent =
+    percent === 100
+      ? 'Your basic profile information is complete.'
+      : 'Complete your basic profile information to reach 100%.';
+}
+
+/* LOAD DASHBOARD */
 
 async function loadDashboard() {
   const { data: { user }, error } = await supabaseClient.auth.getUser();
@@ -277,54 +648,94 @@ async function loadDashboard() {
     return;
   }
 
-const { data: profile, error: profileError } = await supabaseClient
-  .from('profiles')
-  .select('full_name, username')
-  .eq('id', user.id)
-  .single();
+  const { data: profile, error: profileError } = await supabaseClient
+    .from('profiles')
+    .select('full_name, username')
+    .eq('id', user.id)
+    .single();
 
-if (profileError) {
-  console.error(profileError);
-  return;
-}
+  if (profileError) {
+    console.error(profileError);
+    alert('Could not load your profile. Please refresh the page.');
+    return;
+  }
 
-document.getElementById('editFullName').value = profile.full_name || '';
-document.getElementById('editUsername').value = profile.username || '';
+  const name =
+    profile.full_name ||
+    profile.username ||
+    user.email.split('@')[0];
 
-  document.getElementById('welcomeName').textContent = name;
+  document.getElementById('editFullName').value =
+    profile.full_name || '';
+
+  document.getElementById('editUsername').value =
+    profile.username || '';
+
+  document.getElementById('welcomeName')?.textContent = name;
+
   document.getElementById('profileName').textContent = name;
+  document.getElementById('profileUsername').textContent =
+    profile.username ? '@' + profile.username : 'Not set';
+
   document.getElementById('profileEmail').textContent = user.email;
-  document.getElementById('avatar').textContent = name.charAt(0).toUpperCase();
+  document.getElementById('avatar').textContent =
+    name.charAt(0).toUpperCase();
+
+  document.getElementById('greetingName').textContent = name;
+  document.getElementById('pulseAccount').textContent = 'Active';
+
+  updateProfileHealth(profile, user.email);
 }
+
+/* LOGOUT */
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   const button = document.getElementById('logoutBtn');
   button.disabled = true;
+  button.textContent = 'Signing out...';
 
   const { error } = await supabaseClient.auth.signOut();
 
   if (error) {
     alert(error.message);
     button.disabled = false;
+    button.textContent = '↪ Sign out';
     return;
   }
 
   window.location.replace('index.html');
 });
+
+/* QUICK PROFILE EDIT */
+
 document.getElementById('editProfileForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const button = event.currentTarget.querySelector('button[type="submit"]');
+  const button = document.getElementById('saveBtn');
+
+  const fullName = document.getElementById('editFullName').value.trim();
+  const username = document.getElementById('editUsername').value.trim().toLowerCase();
+
+  if (!fullName) {
+    alert('Please enter your full name.');
+    return;
+  }
+
+  if (username && !/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
+    alert('Username must be 3–20 characters and contain only letters, numbers or underscores.');
+    return;
+  }
+
   button.disabled = true;
   button.textContent = 'Saving...';
 
-  const fullName = document.getElementById('editFullName').value.trim();
-  const username = document.getElementById('editUsername').value.trim();
-
   try {
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+    const { data: { user }, error: userError } =
+      await supabaseClient.auth.getUser();
 
-    if (userError || !user) throw new Error('Please sign in again.');
+    if (userError || !user) {
+      throw new Error('Please sign in again.');
+    }
 
     const { error } = await supabaseClient
       .from('profiles')
@@ -334,21 +745,43 @@ document.getElementById('editProfileForm').addEventListener('submit', async (eve
       })
       .eq('id', user.id);
 
-    if (error) throw error;
+    if (error) {
+      if (error.code === '23505') {
+        throw new Error('This username is already taken.');
+      }
+      throw error;
+    }
 
-    document.getElementById('welcomeName').textContent = fullName;
     document.getElementById('profileName').textContent = fullName;
-    document.getElementById('avatar').textContent = fullName.charAt(0).toUpperCase();
+    document.getElementById('profileUsername').textContent =
+      username ? '@' + username : 'Not set';
+
+    document.getElementById('avatar').textContent =
+      fullName.charAt(0).toUpperCase();
+
+    document.getElementById('greetingName').textContent = fullName;
+
+    updateProfileHealth({
+      full_name: fullName,
+      username: username
+    }, user.email);
 
     alert('Profile updated successfully!');
+
   } catch (error) {
     alert(error.message);
+
   } finally {
     button.disabled = false;
     button.textContent = 'Save Changes';
   }
 });
+
+/* START */
+
+updatePulse();
 loadDashboard();
 </script>
+
 </body>
 </html>
