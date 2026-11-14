@@ -119,8 +119,9 @@ authForm.addEventListener('submit', async (event) => {
         email,
         password,
         options: {
-          data: { full_name: fullName }
-        }
+  emailRedirectTo: 'https://supro76p.github.io/Supro-smm/',
+  data: { full_name: fullName }
+}
       });
 
       if (error) throw error;
