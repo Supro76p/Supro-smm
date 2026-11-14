@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080b">
+  <title>Profile Settings — Supro SMM</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #08080b;
+      color: #f4f0fa;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    button, input { font: inherit; }
+
+    .layout { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 245px;
+      padding: 28px 18px;
+      background: #101014;
+      border-right: 1px solid #24232a;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand {
+      font: 700 23px 'Space Grotesk';
+      letter-spacing: 1px;
+      margin: 0 0 45px 8px;
+    }
+
+    .brand span { color: #a78bfa; }
+
+    .nav-label {
+      color: #77737f;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin: 0 10px 12px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 13px 14px;
+      margin-bottom: 7px;
+      border-radius: 10px;
+      color: #aaa5b3;
+      text-decoration: none;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .nav-link:hover { background: #1b1921; }
+
+    .nav-link.active {
+      color: white;
+      background: #211b2d;
+      border: 1px solid #40334f;
+    }
+
+    .sidebar-bottom { margin-top: auto; }
+
+    .logout {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      color: #e8b0bd;
+      background: #21171d;
+      border: 1px solid #392630;
+      cursor: pointer;
+    }
+
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 42px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 38px;
+    }
+
+    .eyebrow {
+      color: #a78bfa;
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font: 700 30px 'Space Grotesk';
+      margin: 9px 0;
+    }
+
+    .muted { color: #85818d; font-size: 13px; }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: #292033;
+      border: 1px solid #504064;
+      color: #e4d7ff;
+      font-weight: 800;
+    }
+
+    .profile-card {
+      max-width: 760px;
+      padding: 30px;
+      background: linear-gradient(145deg,#15141a,#101014);
+      border: 1px solid #29272f;
+      border-radius: 19px;
+      box-shadow: 0 15px 50px #00000025;
+    }
+
+    .card-heading {
+      font: 600 19px 'Space Grotesk';
+      margin: 0 0 8px;
+    }
+
+    .card-description {
+      color: #85818d;
+      font-size: 13px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      color: #aaa5b3;
+      font-size: 12px;
+      margin-bottom: 9px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      margin-bottom: 21px;
+      background: #0b0b0f;
+      border: 1px solid #302d37;
+      border-radius: 10px;
+      color: #f4f0fa;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #8064b5;
+      box-shadow: 0 0 0 3px #8064b51a;
+    }
+
+    input[readonly] {
+      color: #85818d;
+      cursor: not-allowed;
+    }
+
+    .hint {
+      display: block;
+      color: #77737f;
+      font-size: 11px;
+      margin-top: -13px;
+      margin-bottom: 20px;
+    }
+
+    .save-button {
+      padding: 14px 23px;
+      border: 1px solid #7655a7;
+      border-radius: 10px;
+      background: linear-gradient(110deg,#62458c,#493365);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .save-button:hover { filter: brightness(1.15); }
+
+    .save-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .message {
+      margin-top: 18px;
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 20px;
+    }
+
+    .note {
+      margin-top: 23px;
+      padding-top: 18px;
+      border-top: 1px solid #29272f;
+      color: #77737f;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media(max-width:700px) {
+      .layout { display: block; }
+
+      .sidebar {
+        width: 100%;
+        padding: 20px;
+        border-right: 0;
+        border-bottom: 1px solid #24232a;
+      }
+
+      .brand { margin: 0 0 20px; }
+      .sidebar-bottom { margin-top: 15px; }
+      main { padding: 27px 17px; }
+      .profile-card { padding: 22px; }
+      h1 { font-size: 25px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="brand">SUPRO<span>SMM</span></div>
+
+    <div class="nav-label">WORKSPACE</div>
+
+    <a class="nav-link" href="dashboard.html">◈ Overview</a>
+    <a class="nav-link active" href="profile.html">◎ Profile Settings</a>
+    <a class="nav-link" href="index.html">↗ Main Website</a>
+
+    <div class="sidebar-bottom">
+      <button class="logout" id="logoutBtn">↪ Sign out</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">SUPRO SMM / SETTINGS</div>
+        <h1>Profile Settings</h1>
+        <div class="muted">Manage your personal account information.</div>
+      </div>
+
+      <div class="avatar" id="avatar">S</div>
+    </div>
+
+    <section class="profile-card">
+      <h2 class="card-heading">Personal Information</h2>
+      <p class="card-description">
+        Keep your account information up to date.
+      </p>
+
+      <form id="profileForm">
+
+        <label for="fullName">Full name</label>
+        <input type="text" id="fullName" required maxlength="60"
+          placeholder="Enter your full name">
+
+        <label for="username">Username</label>
+        <input type="text" id="username" maxlength="20"
+          minlength="3" pattern="[A-Za-z0-9_]+"
+          placeholder="Choose a username">
+
+        <span class="hint">3–20 characters. Letters, numbers and underscores only.</span>
+
+        <label for="email">Email address</label>
+        <input type="email" id="email" readonly>
+
+        <button type="submit" class="save-button" id="saveButton">
+          Save Changes
+        </button>
+
+        <div class="message" id="message" role="status" aria-live="polite"></div>
+      </form>
+
+      <div class="note">
+        Your email address is read-only on this page.
+        Your profile changes are saved to your Supro SMM account.
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co';
+
+// Replace this placeholder with the SAME publishable key
+// already used in your dashboard.html.
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const form = document.getElementById('profileForm');
+const saveButton = document.getElementById('saveButton');
+const message = document.getElementById('message');
+
+function showMessage(text, success = false) {
+  message.textContent = text;
+  message.style.color = success ? '#a7dfbb' : '#e8a0ad';
+}
+
+async function loadProfile() {
+  try {
+    const { data: { user }, error: authError } =
+      await supabaseClient.auth.getUser();
+
+    if (authError || !user) {
+      window.location.replace('index.html');
+      return;
+    }
+
+    const { data: profile, error } = await supabaseClient
+      .from('profiles')
+      .select('full_name, username')
+      .eq('id', user.id)
+      .single();
+
+    if (error) throw error;
+
+    document.getElementById('fullName').value =
+      profile.full_name || '';
+
+    document.getElementById('username').value =
+      profile.username || '';
+
+    document.getElementById('email').value =
+      user.email || '';
+
+    const name = profile.full_name || 'S';
+
+    document.getElementById('avatar').textContent =
+      name.charAt(0).toUpperCase();
+
+  } catch (error) {
+    showMessage('Unable to load profile. Please refresh and try again.');
+    console.error(error);
+  }
+}
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const username = document.getElementById('username').value.trim().toLowerCase();
+
+  if (!fullName) {
+    showMessage('Please enter your full name.');
+    return;
+  }
+
+  if (username && !/^[a-z0-9_]{3,20}$/.test(username)) {
+    showMessage('Username must be 3–20 characters: letters, numbers or underscores.');
+    return;
+  }
+
+  saveButton.disabled = true;
+  saveButton.textContent = 'Saving...';
+  message.textContent = '';
+
+  try {
+    const { data: { user }, error: authError } =
+      await supabaseClient.auth.getUser();
+
+    if (authError || !user) {
+      throw new Error('Your session has expired. Please sign in again.');
+    }
+
+    const { error } = await supabaseClient
+      .from('profiles')
+      .update({
+        full_name: fullName,
+        username: username || null
+      })
+      .eq('id', user.id);
+
+    if (error) {
+      if (error.code === '23505') {
+        throw new Error('This username is already taken. Please choose another.');
+      }
+      throw error;
+    }
+
+    document.getElementById('avatar').textContent =
+      fullName.charAt(0).toUpperCase();
+
+    showMessage('Your profile has been updated successfully!', true);
+
+  } catch (error) {
+    showMessage(error.message || 'Something went wrong. Please try again.');
+    console.error(error);
+  } finally {
+    saveButton.disabled = false;
+    saveButton.textContent = 'Save Changes';
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  const button = document.getElementById('logoutBtn');
+  button.disabled = true;
+  button.textContent = 'Signing out...';
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert(error.message);
+    button.disabled = false;
+    button.textContent = '↪ Sign out';
+    return;
+  }
+
+  window.location.replace('index.html');
+});
+
+loadProfile();
+</script>
+
+</body>
+</html>
