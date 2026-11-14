@@ -602,52 +602,88 @@ const count = document.getElementById("serviceCount");
 function renderPlatform(platform) {
   const data = services[platform];
 
+  if (!data) return;
+
   title.textContent = data.title;
   subtitle.textContent = data.subtitle;
   count.textContent = String(data.items.length).padStart(2,"0") + " SERVICES";
 
-  grid.innerHTML = "";
-  table.innerHTML = "";
-
-  data.items.forEach((item,index) => {
+  const cards = data.items.map(item => {
     const [name,description,category,symbol] = item;
 
-    grid.innerHTML += `
-      <article class="service-card">
-        <div class="card-top">
-          <div class="service-symbol">${symbol}</div>
-          <span class="tag">${category}</span>
-        </div>
-        <h3>${name}</h3>
-        <p>${description}</p>
-        <div class="card-bottom">
-          <span>Demo service · No charge</span>
-          <button class="demo-btn" type="button"
-            onclick="showDemo('${name.replace(/'/g,"\\'")}')">
-            Explore ↗
-          </button>
-        </div>
-      </article>
-    `;
+    const card = document.createElement("article");
+    card.className = "service-card";
 
-    table.innerHTML += `
-      <tr>
-        <td>${name}</td>
-        <td>${category}</td>
-        <td><span class="status">Demo Only</span></td>
-        <td>—</td>
-      </tr>
-    `;
+    const top = document.createElement("div");
+    top.className = "card-top";
+
+    const icon = document.createElement("div");
+    icon.className = "service-symbol";
+    icon.textContent = symbol;
+
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = category;
+
+    top.append(icon,tag);
+
+    const heading = document.createElement("h3");
+    heading.textContent = name;
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = description;
+
+    const bottom = document.createElement("div");
+    bottom.className = "card-bottom";
+
+    const note = document.createElement("span");
+    note.textContent = "Demo service · No charge";
+
+    const button = document.createElement("button");
+    button.className = "demo-btn";
+    button.type = "button";
+    button.textContent = "Explore ↗";
+    button.addEventListener("click", () => showDemo(name));
+
+    bottom.append(note,button);
+    card.append(top,heading,paragraph,bottom);
+
+    return card;
   });
+
+  grid.replaceChildren(...cards);
+
+  const rows = data.items.map(item => {
+    const [name,,category] = item;
+    const row = document.createElement("tr");
+
+    [name,category].forEach(value => {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+
+    const statusCell = document.createElement("td");
+    const status = document.createElement("span");
+    status.className = "status";
+    status.textContent = "Demo Only";
+    statusCell.appendChild(status);
+
+    const priceCell = document.createElement("td");
+    priceCell.textContent = "—";
+
+    row.append(statusCell,priceCell);
+    return row;
+  });
+
+  table.replaceChildren(...rows);
 
   document.querySelectorAll(".platform").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.platform === platform
-    );
+    const isActive = button.dataset.platform === platform;
+    button.classList.toggle("active",isActive);
+    button.setAttribute("aria-pressed",String(isActive));
   });
 }
-
 function showDemo(name) {
   alert(name + "\n\nThis is a demo service. Real orders are not available.");
 }
