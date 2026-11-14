@@ -1,0 +1,638 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090610">
+<title>Services | Supro SMM</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#090610;
+  --panel:#130d20;
+  --panel2:#1b112b;
+  --purple:#9857ff;
+  --light:#c8a7ff;
+  --text:#f7f1ff;
+  --muted:#a69ab8;
+  --border:rgba(178,126,255,.18);
+}
+
+* {margin:0;padding:0;box-sizing:border-box}
+
+body {
+  background:
+    radial-gradient(ellipse at 80% 0%,rgba(111,46,190,.19),transparent 40%),
+    radial-gradient(ellipse at 0% 60%,rgba(91,38,145,.12),transparent 38%),
+    var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+}
+
+button {font:inherit;cursor:pointer}
+
+.topbar {
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5%;
+  border-bottom:1px solid var(--border);
+  background:rgba(9,6,16,.8);
+  backdrop-filter:blur(18px);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.brand {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#fff,#b68aff);
+  color:transparent;
+  background-clip:text;
+}
+
+.brand span {color:var(--purple)}
+
+.back {
+  text-decoration:none;
+  color:#e8d9ff;
+  border:1px solid var(--border);
+  padding:10px 17px;
+  border-radius:12px;
+  font-size:13px;
+  transition:.3s;
+}
+
+.back:hover {
+  background:rgba(152,87,255,.15);
+  border-color:var(--purple);
+}
+
+.container {max-width:1180px;margin:auto;padding:48px 24px 70px}
+
+.hero {margin-bottom:38px}
+
+.eyebrow {
+  color:var(--light);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:15px;
+}
+
+.hero h1 {
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(34px,6vw,57px);
+  font-weight:800;
+  line-height:1.12;
+  letter-spacing:-1.5px;
+}
+
+.hero h1 span {
+  background:linear-gradient(100deg,#fff,#b78aff 60%,#8d45ff);
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p {
+  color:var(--muted);
+  max-width:570px;
+  line-height:1.8;
+  font-size:14px;
+  margin-top:15px;
+}
+
+.demo-note {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:19px;
+  padding:8px 13px;
+  border-radius:30px;
+  background:rgba(152,87,255,.11);
+  border:1px solid var(--border);
+  color:#d7baff;
+  font-size:11px;
+  font-weight:700;
+}
+
+.section-heading {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:21px;
+  font-weight:700;
+  margin-bottom:17px;
+}
+
+.platform-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:46px;
+}
+
+.platform {
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#1b112a,#100b19);
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:21px 12px;
+  text-align:center;
+  color:var(--text);
+  transition:.25s;
+}
+
+.platform:hover,.platform.active {
+  transform:translateY(-4px);
+  border-color:#a66aff;
+  background:linear-gradient(145deg,#291541,#171024);
+  box-shadow:0 10px 35px rgba(130,65,220,.17);
+}
+
+.platform.active:after {
+  content:"";
+  position:absolute;
+  height:3px;
+  background:linear-gradient(90deg,#8e45ff,#d4adff);
+  bottom:0;left:20%;right:20%;
+  border-radius:5px;
+}
+
+.platform-icon {
+  width:45px;height:45px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 12px;
+  border-radius:14px;
+  background:rgba(160,105,255,.13);
+  color:#d0b0ff;
+  font-family:'Outfit',sans-serif;
+  font-size:22px;
+  font-weight:800;
+}
+
+.platform strong {
+  display:block;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:14px;
+  font-weight:700;
+}
+
+.platform small {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+}
+
+.service-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.service-header h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:27px;
+  font-weight:800;
+}
+
+.service-header p {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+
+.count {
+  padding:8px 13px;
+  background:rgba(152,87,255,.12);
+  color:#d5b8ff;
+  border:1px solid var(--border);
+  border-radius:30px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.service-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
+}
+
+.service-card {
+  background:linear-gradient(145deg,rgba(31,20,47,.94),rgba(16,11,25,.96));
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:23px;
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+
+.service-card:hover {
+  transform:translateY(-5px);
+  border-color:rgba(177,119,255,.55);
+  box-shadow:0 15px 38px rgba(91,35,150,.16);
+}
+
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.service-symbol {
+  height:40px;width:40px;
+  display:grid;
+  place-items:center;
+  background:rgba(153,91,255,.15);
+  color:#d3b4ff;
+  border-radius:13px;
+  font-size:19px;
+}
+
+.tag {
+  font-size:9px;
+  font-weight:800;
+  color:#d2b4ff;
+  background:rgba(152,87,255,.13);
+  border:1px solid rgba(152,87,255,.2);
+  padding:6px 9px;
+  border-radius:30px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+}
+
+.service-card h3 {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#fff;
+}
+
+.service-card p {
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.8;
+  min-height:43px;
+}
+
+.card-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid var(--border);
+  margin-top:19px;
+  padding-top:16px;
+}
+
+.card-bottom span {
+  color:#a99bb9;
+  font-size:10px;
+}
+
+.demo-btn {
+  border:1px solid rgba(168,117,255,.4);
+  background:rgba(152,87,255,.13);
+  color:#e1ccff;
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.demo-btn:hover {background:rgba(152,87,255,.25)}
+
+.table-section {
+  margin-top:44px;
+  background:rgba(19,13,32,.8);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.table-title {padding:23px 23px 15px}
+
+.table-title h3 {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:19px;
+  font-weight:700;
+}
+
+.table-title p {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:6px;
+}
+
+.table-scroll {overflow-x:auto}
+
+table {
+  width:100%;
+  border-collapse:collapse;
+  min-width:560px;
+  text-align:left;
+}
+
+th {
+  background:rgba(153,87,255,.10);
+  color:#d3b7ff;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  padding:15px 22px;
+}
+
+td {
+  padding:17px 22px;
+  border-top:1px solid rgba(178,126,255,.10);
+  font-size:12px;
+  color:#c9bed6;
+}
+
+td:first-child {
+  color:#fff;
+  font-weight:700;
+  font-family:'Space Grotesk',sans-serif;
+}
+
+.status {
+  color:#d3b5ff;
+  background:rgba(152,87,255,.12);
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.footer {
+  text-align:center;
+  color:#776b86;
+  font-size:11px;
+  padding:32px 15px 10px;
+  line-height:1.8;
+}
+
+.empty {
+  display:none;
+  padding:40px;
+  text-align:center;
+  color:var(--muted);
+}
+
+@media(max-width:800px) {
+  .platform-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .service-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:520px) {
+  .topbar {height:66px;padding:0 18px}
+  .brand {font-size:21px}
+  .container {padding:34px 17px 50px}
+  .platform-grid {gap:9px}
+  .platform {padding:17px 7px;border-radius:15px}
+  .platform-icon {width:39px;height:39px;font-size:19px}
+  .platform strong {font-size:12px}
+  .platform small {font-size:9px}
+  .service-grid {grid-template-columns:1fr;gap:12px}
+  .service-card {padding:20px}
+  .hero h1 {font-size:39px}
+  .service-header h2 {font-size:24px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand">SUPRO<span>.</span> SMM</div>
+  <a href="dashboard.html" class="back">← Dashboard</a>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="eyebrow">✦ SUPRO DIGITAL EXPERIENCE</div>
+    <h1>Explore Our<br><span>Services.</span></h1>
+    <p>Discover platform-focused creative and digital support services, designed to help you plan, improve and understand your online presence.</p>
+    <div class="demo-note">✦ DEMO EXPERIENCE · NO REAL ORDERS</div>
+  </section>
+
+  <section>
+    <h2 class="section-heading">Choose Your Platform</h2>
+
+    <div class="platform-grid">
+      <button class="platform active" data-platform="facebook">
+        <div class="platform-icon">f</div>
+        <strong>Facebook</strong>
+        <small>Meta Platform</small>
+      </button>
+
+      <button class="platform" data-platform="instagram">
+        <div class="platform-icon">◎</div>
+        <strong>Instagram</strong>
+        <small>Visual Media</small>
+      </button>
+
+      <button class="platform" data-platform="tiktok">
+        <div class="platform-icon">♪</div>
+        <strong>TikTok</strong>
+        <small>Short Videos</small>
+      </button>
+
+      <button class="platform" data-platform="youtube">
+        <div class="platform-icon">▶</div>
+        <strong>YouTube</strong>
+        <small>Video Platform</small>
+      </button>
+
+      <button class="platform" data-platform="telegram">
+        <div class="platform-icon">➤</div>
+        <strong>Telegram</strong>
+        <small>Community</small>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <div class="service-header">
+      <div>
+        <h2 id="platformTitle">Facebook Services</h2>
+        <p id="platformSubtitle">Creative support for your Facebook presence</p>
+      </div>
+      <div class="count" id="serviceCount">04 SERVICES</div>
+    </div>
+
+    <div class="service-grid" id="serviceGrid"></div>
+  </section>
+
+  <section class="table-section">
+    <div class="table-title">
+      <h3>Service Overview</h3>
+      <p>Explore the details of each available demo service.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Service Name</th>
+            <th>Category</th>
+            <th>Availability</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="serviceTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    SUPRO SMM © <span id="year"></span><br>
+    A creative digital services demo interface.
+  </div>
+
+</main>
+
+<script>
+const services = {
+  facebook: {
+    title:"Facebook Services",
+    subtitle:"Creative support for your Facebook presence",
+    items:[
+      ["Page Audit","Review your page structure, information and presentation.","Profile Support","✦"],
+      ["Content Planning","Organize your upcoming posts with a clear content calendar.","Content Strategy","▤"],
+      ["Caption Review","Improve caption clarity, readability and writing style.","Creative Support","✎"],
+      ["Analytics Report","Understand available page insights and performance trends.","Analytics","◈"]
+    ]
+  },
+  instagram: {
+    title:"Instagram Services",
+    subtitle:"Build a clear and consistent visual identity",
+    items:[
+      ["Profile Audit","Review your bio, profile information and visual consistency.","Profile Support","◎"],
+      ["Content Planning","Plan a consistent schedule for posts and reels.","Content Strategy","▤"],
+      ["Caption Review","Refine captions to make your message clearer and engaging.","Creative Support","✎"],
+      ["Analytics Report","Understand reach, audience insights and content trends.","Analytics","◈"]
+    ]
+  },
+  tiktok: {
+    title:"TikTok Services",
+    subtitle:"Creative planning for short-form video content",
+    items:[
+      ["Content Ideas","Develop creative concepts for your next short videos.","Creative Support","✦"],
+      ["Video Planning","Organize video topics and a simple publishing calendar.","Content Strategy","▤"],
+      ["Caption Review","Improve video captions and descriptions.","Creative Support","✎"],
+      ["Profile Audit","Review profile presentation and account information.","Profile Support","◈"]
+    ]
+  },
+  youtube: {
+    title:"YouTube Services",
+    subtitle:"Organize and improve your channel content",
+    items:[
+      ["Channel Audit","Review channel information, branding and layout.","Profile Support","▶"],
+      ["Title & Description","Review video titles and descriptions for clarity.","Creative Support","✎"],
+      ["Content Calendar","Plan your upcoming videos with a structured calendar.","Content Strategy","▤"],
+      ["Analytics Report","Understand channel analytics and performance trends.","Analytics","◈"]
+    ]
+  },
+  telegram: {
+    title:"Telegram Services",
+    subtitle:"Organize your channel and community presence",
+    items:[
+      ["Channel Audit","Review channel information and presentation.","Profile Support","➤"],
+      ["Content Planning","Create a structured plan for channel posts.","Content Strategy","▤"],
+      ["Post Review","Improve the clarity and readability of channel posts.","Creative Support","✎"],
+      ["Analytics Report","Review available channel statistics and trends.","Analytics","◈"]
+    ]
+  }
+};
+
+const grid = document.getElementById("serviceGrid");
+const table = document.getElementById("serviceTable");
+const title = document.getElementById("platformTitle");
+const subtitle = document.getElementById("platformSubtitle");
+const count = document.getElementById("serviceCount");
+
+function renderPlatform(platform) {
+  const data = services[platform];
+
+  title.textContent = data.title;
+  subtitle.textContent = data.subtitle;
+  count.textContent = String(data.items.length).padStart(2,"0") + " SERVICES";
+
+  grid.innerHTML = "";
+  table.innerHTML = "";
+
+  data.items.forEach((item,index) => {
+    const [name,description,category,symbol] = item;
+
+    grid.innerHTML += `
+      <article class="service-card">
+        <div class="card-top">
+          <div class="service-symbol">${symbol}</div>
+          <span class="tag">${category}</span>
+        </div>
+        <h3>${name}</h3>
+        <p>${description}</p>
+        <div class="card-bottom">
+          <span>Demo service · No charge</span>
+          <button class="demo-btn" type="button"
+            onclick="showDemo('${name.replace(/'/g,"\\'")}')">
+            Explore ↗
+          </button>
+        </div>
+      </article>
+    `;
+
+    table.innerHTML += `
+      <tr>
+        <td>${name}</td>
+        <td>${category}</td>
+        <td><span class="status">Demo Only</span></td>
+        <td>—</td>
+      </tr>
+    `;
+  });
+
+  document.querySelectorAll(".platform").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.platform === platform
+    );
+  });
+}
+
+function showDemo(name) {
+  alert(name + "\n\nThis is a demo service. Real orders are not available.");
+}
+
+document.querySelectorAll(".platform").forEach(button => {
+  button.addEventListener("click", () => {
+    renderPlatform(button.dataset.platform);
+  });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+renderPlatform("facebook");
+</script>
+
+</body>
+</html>
