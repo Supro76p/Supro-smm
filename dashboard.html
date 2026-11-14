@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09070f">
+  <title>Dashboard — Supro SMM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #09070f;
+      color: #f5f1ff;
+      font-family: 'DM Sans', sans-serif;
+    }
+    button { font: inherit; cursor: pointer; }
+    .layout { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 245px;
+      padding: 28px 18px;
+      background: #100d19;
+      border-right: 1px solid #282132;
+      display: flex;
+      flex-direction: column;
+    }
+    .brand {
+      font: 700 23px 'Space Grotesk';
+      letter-spacing: 1px;
+      margin: 0 0 45px 8px;
+    }
+    .brand span { color: #a78bfa; }
+    .nav-label {
+      color: #777083;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin: 0 10px 12px;
+    }
+    .nav-link {
+      display: block;
+      padding: 13px 14px;
+      margin-bottom: 7px;
+      border-radius: 10px;
+      color: #aaa2b8;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .nav-link.active {
+      color: white;
+      background: #281d3d;
+      border: 1px solid #48316c;
+    }
+    .sidebar-bottom { margin-top: auto; }
+    .demo-note {
+      padding: 14px;
+      margin-bottom: 20px;
+      background: #191326;
+      border: 1px solid #302343;
+      border-radius: 12px;
+      color: #b6a5d5;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .logout {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      color: #f5a5b5;
+      background: #29151f;
+      border: 1px solid #512536;
+    }
+    main { flex: 1; min-width: 0; padding: 38px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .eyebrow {
+      color: #a78bfa;
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+    h1 {
+      font: 700 30px 'Space Grotesk';
+      margin: 9px 0;
+    }
+    .muted { color: #91899e; font-size: 13px; }
+    .avatar {
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: #392451;
+      border: 1px solid #74509a;
+      font-weight: 800;
+      color: #e4d3ff;
+    }
+    .welcome {
+      padding: 30px;
+      border: 1px solid #493363;
+      border-radius: 18px;
+      background: linear-gradient(120deg,#21162f,#120e1d 75%);
+      margin-bottom: 25px;
+    }
+    .welcome h2 {
+      font: 700 25px 'Space Grotesk';
+      margin: 10px 0;
+    }
+    .welcome p { color: #b8adc8; font-size: 13px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+    .stat, .panel {
+      background: #110e19;
+      border: 1px solid #292333;
+      border-radius: 15px;
+      padding: 22px;
+    }
+    .stat small { color: #948ba3; font-size: 12px; }
+    .stat strong {
+      display: block;
+      font: 700 27px 'Space Grotesk';
+      margin-top: 12px;
+    }
+    .panel h3 {
+      font: 600 17px 'Space Grotesk';
+      margin: 0 0 20px;
+    }
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 14px 0;
+      border-bottom: 1px solid #282333;
+      font-size: 13px;
+    }
+    .profile-row:last-child { border: 0; }
+    .profile-row span { color: #92899f; }
+    .status { color: #9de5bd; }
+    @media(max-width:800px) {
+      .sidebar { width: 190px; }
+      main { padding: 25px 18px; }
+      .stats { grid-template-columns: 1fr; }
+    }
+    @media(max-width:560px) {
+      .layout { display: block; }
+      .sidebar {
+        width: 100%;
+        padding: 19px;
+        border-right: 0;
+        border-bottom: 1px solid #282132;
+      }
+      .brand { margin: 0 0 20px; }
+      .sidebar-bottom { margin-top: 12px; }
+      .demo-note { margin-bottom: 10px; }
+      main { padding: 25px 17px; }
+      .topbar { margin-bottom: 25px; }
+      h1 { font-size: 25px; }
+      .welcome { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">SUPRO<span>SMM</span></div>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-link active" href="#overview">◈ Overview</a>
+    <a class="nav-link" href="#profile">◎ My Profile</a>
+    <a class="nav-link" href="index.html">↗ Main Website</a>
+    <div class="sidebar-bottom">
+      <div class="demo-note">DEMO MODE<br>This dashboard is a preview. Orders and payments are not enabled.</div>
+      <button class="logout" id="logoutBtn">↪ Sign out</button>
+    </div>
+  </aside>
+
+  <main id="overview">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">SUPRO SMM / WORKSPACE</div>
+        <h1>Dashboard</h1>
+        <div class="muted">Your personal account overview.</div>
+      </div>
+      <div class="avatar" id="avatar">S</div>
+    </div>
+
+    <section class="welcome">
+      <div class="eyebrow">WELCOME BACK</div>
+      <h2>Hello, <span id="welcomeName">User</span>.</h2>
+      <p>Your Supro SMM workspace is ready.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <small>Account status</small>
+        <strong class="status">Active</strong>
+      </div>
+      <div class="stat">
+        <small>Available services</small>
+        <strong>120+</strong>
+      </div>
+      <div class="stat">
+        <small>Total orders</small>
+        <strong>0</strong>
+      </div>
+    </section>
+
+    <section class="panel" id="profile">
+      <h3>Account information</h3>
+      <div class="profile-row">
+        <span>Full name</span>
+        <b id="profileName">Loading...</b>
+      </div>
+      <div class="profile-row">
+        <span>Email address</span>
+        <b id="profileEmail">Loading...</b>
+      </div>
+      <div class="profile-row">
+        <span>Account status</span>
+        <b class="status">Verified</b>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+async function loadDashboard() {
+  const { data: { user }, error } = await supabaseClient.auth.getUser();
+
+  if (error || !user) {
+    window.location.replace('index.html');
+    return;
+  }
+
+  const name = user.user_metadata?.full_name || user.email.split('@')[0];
+
+  document.getElementById('welcomeName').textContent = name;
+  document.getElementById('profileName').textContent = name;
+  document.getElementById('profileEmail').textContent = user.email;
+  document.getElementById('avatar').textContent = name.charAt(0).toUpperCase();
+}
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  const button = document.getElementById('logoutBtn');
+  button.disabled = true;
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert(error.message);
+    button.disabled = false;
+    return;
+  }
+
+  window.location.replace('index.html');
+});
+
+loadDashboard();
+</script>
+</body>
+</html>
