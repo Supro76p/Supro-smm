@@ -229,9 +229,35 @@
         <span>Account status</span>
         <b class="status">Verified</b>
       </div>
-    </section>
-  </main>
-</div>
+          <div style="border-top:1px solid #282333; margin-top:20px; padding-top:22px;">
+        <h3>Edit Profile</h3>
+
+        <form id="editProfileForm">
+          <label style="display:block; color:#aaa2b8; font-size:13px; margin-bottom:8px;">
+            Full name
+          </label>
+          <input
+            type="text"
+            id="editFullName"
+            required
+            style="width:100%; padding:13px; margin-bottom:16px; background:#09070f; color:white; border:1px solid #393044; border-radius:9px;"
+          >
+
+          <label style="display:block; color:#aaa2b8; font-size:13px; margin-bottom:8px;">
+            Username
+          </label>
+          <input
+            type="text"
+            id="editUsername"
+            placeholder="Choose a username"
+            style="width:100%; padding:13px; margin-bottom:18px; background:#09070f; color:white; border:1px solid #393044; border-radius:9px;"
+          >
+
+          <button type="submit" class="logout" style="color:#fff; background:#392451; border-color:#74509a;">
+            Save Changes
+          </button>
+        </form>
+      </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -262,7 +288,8 @@ if (profileError) {
   return;
 }
 
-const name = profile.full_name || profile.username || user.email.split('@')[0];
+document.getElementById('editFullName').value = profile.full_name || '';
+document.getElementById('editUsername').value = profile.username || '';
 
   document.getElementById('welcomeName').textContent = name;
   document.getElementById('profileName').textContent = name;
@@ -284,7 +311,43 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 
   window.location.replace('index.html');
 });
+document.getElementById('editProfileForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
 
+  const button = event.currentTarget.querySelector('button[type="submit"]');
+  button.disabled = true;
+  button.textContent = 'Saving...';
+
+  const fullName = document.getElementById('editFullName').value.trim();
+  const username = document.getElementById('editUsername').value.trim();
+
+  try {
+    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+    if (userError || !user) throw new Error('Please sign in again.');
+
+    const { error } = await supabaseClient
+      .from('profiles')
+      .update({
+        full_name: fullName,
+        username: username || null
+      })
+      .eq('id', user.id);
+
+    if (error) throw error;
+
+    document.getElementById('welcomeName').textContent = fullName;
+    document.getElementById('profileName').textContent = fullName;
+    document.getElementById('avatar').textContent = fullName.charAt(0).toUpperCase();
+
+    alert('Profile updated successfully!');
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Save Changes';
+  }
+});
 loadDashboard();
 </script>
 </body>
