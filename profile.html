@@ -299,11 +299,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co';
+const SUPABASE_URL =
+  'https://cgkiddhxbkuvdyghlpfc.supabase.co';
 
-// Replace this placeholder with the SAME publishable key
-// already used in your dashboard.html.
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
+// Keep your existing publishable key here.
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -313,6 +314,7 @@ const supabaseClient = window.supabase.createClient(
 const form = document.getElementById('profileForm');
 const saveButton = document.getElementById('saveButton');
 const message = document.getElementById('message');
+const logoutButton = document.getElementById('logoutBtn');
 
 function showMessage(text, success = false) {
   message.textContent = text;
@@ -346,10 +348,8 @@ async function loadProfile() {
     document.getElementById('email').value =
       user.email || '';
 
-    const name = profile.full_name || 'S';
-
     document.getElementById('avatar').textContent =
-      name.charAt(0).toUpperCase();
+      (profile.full_name || 'S').charAt(0).toUpperCase();
 
   } catch (error) {
     showMessage('Unable to load profile. Please refresh and try again.');
@@ -360,8 +360,11 @@ async function loadProfile() {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const fullName = document.getElementById('fullName').value.trim();
-  const username = document.getElementById('username').value.trim().toLowerCase();
+  const fullName =
+    document.getElementById('fullName').value.trim();
+
+  const username =
+    document.getElementById('username').value.trim().toLowerCase();
 
   if (!fullName) {
     showMessage('Please enter your full name.');
@@ -369,7 +372,7 @@ form.addEventListener('submit', async (event) => {
   }
 
   if (username && !/^[a-z0-9_]{3,20}$/.test(username)) {
-    showMessage('Username must be 3–20 characters: letters, numbers or underscores.');
+    showMessage('Username must be 3–20 characters.');
     return;
   }
 
@@ -382,7 +385,8 @@ form.addEventListener('submit', async (event) => {
       await supabaseClient.auth.getUser();
 
     if (authError || !user) {
-      throw new Error('Your session has expired. Please sign in again.');
+      window.location.replace('index.html');
+      return;
     }
 
     const { error } = await supabaseClient
@@ -395,7 +399,9 @@ form.addEventListener('submit', async (event) => {
 
     if (error) {
       if (error.code === '23505') {
-        throw new Error('This username is already taken. Please choose another.');
+        throw new Error(
+          'This username is already taken. Please choose another.'
+        );
       }
       throw error;
     }
@@ -403,36 +409,47 @@ form.addEventListener('submit', async (event) => {
     document.getElementById('avatar').textContent =
       fullName.charAt(0).toUpperCase();
 
-    showMessage('Your profile has been updated successfully!', true);
+    showMessage(
+      'Your profile has been updated successfully!',
+      true
+    );
 
   } catch (error) {
-    showMessage(error.message || 'Something went wrong. Please try again.');
+    showMessage(error.message || 'Something went wrong.');
     console.error(error);
+
   } finally {
     saveButton.disabled = false;
     saveButton.textContent = 'Save Changes';
   }
 });
 
-document.getElementById('logoutBtn').addEventListener('click', async () => {
-  const button = document.getElementById('logoutBtn');
-  button.disabled = true;
-  button.textContent = 'Signing out...';
+logoutButton.addEventListener('click', async () => {
+  logoutButton.disabled = true;
+  logoutButton.textContent = 'Signing out...';
 
-  const { error } = await supabaseClient.auth.signOut();
+  try {
+    const { error } = await supabaseClient.auth.signOut();
 
-  if (error) {
+    if (error) throw error;
+
+    window.location.replace('index.html');
+
+  } catch (error) {
     alert(error.message);
-    button.disabled = false;
-    button.textContent = '↪ Sign out';
-    return;
+    logoutButton.disabled = false;
+    logoutButton.textContent = '↪ Sign out';
   }
+});
 
-  window.location.replace('index.html');
+supabaseClient.auth.onAuthStateChange((event) => {
+  if (event === 'SIGNED_OUT') {
+    window.location.replace('index.html');
+  }
 });
 
 loadProfile();
-</script>
-
+>
+<script>
 </body>
 </html>
