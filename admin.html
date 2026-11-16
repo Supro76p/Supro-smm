@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090610">
+<title>Admin | Supro SMM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090610;--text:#f7f1ff;--muted:#a69ab8;--border:rgba(178,126,255,.18)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:radial-gradient(ellipse at 80% 0%,rgba(111,46,190,.19),transparent 40%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer}
+.topbar{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid var(--border);background:rgba(9,6,16,.8);backdrop-filter:blur(18px)}
+.brand{font:800 20px 'Space Grotesk',sans-serif;letter-spacing:2px}
+.brand small{color:#c8a7ff;font-size:10px;letter-spacing:2px;margin-left:8px}
+.back{text-decoration:none;color:#e8d9ff;border:1px solid var(--border);padding:9px 15px;border-radius:12px;font-size:13px}
+.wrap{max-width:900px;margin:auto;padding:30px 18px 60px}
+h1{font:700 28px 'Space Grotesk',sans-serif;margin-bottom:20px}
+h2{font:600 18px 'Space Grotesk',sans-serif;margin:30px 0 14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:linear-gradient(145deg,rgba(31,20,47,.94),rgba(16,11,25,.96));border:1px solid var(--border);border-radius:16px;padding:18px}
+.lbl{color:var(--muted);font-size:10px;letter-spacing:1px}
+.num{font:700 26px 'Space Grotesk',sans-serif;margin-top:6px}
+.dep{margin-bottom:12px}
+.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.amt{font:700 20px 'Space Grotesk',sans-serif}
+.meta{color:var(--muted);font-size:12px;line-height:1.8;margin-top:8px;overflow-wrap:anywhere}
+.meta b{color:#e8d9ff;font-weight:600}
+.acts{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;padding:11px;border-radius:10px;font-weight:700;font-size:13px;border:1px solid transparent}
+.ok{background:rgba(94,156,124,.2);border-color:rgba(94,156,124,.5);color:#9fe0b9}
+.no{background:rgba(200,90,110,.15);border-color:rgba(200,90,110,.4);color:#f0a0b0}
+.btn:disabled{opacity:.5;cursor:wait}
+.st{padding:4px 9px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(152,87,255,.13);color:#d3b5ff}
+.st.approved{background:rgba(94,156,124,.18);color:#9fe0b9}
+.st.rejected{background:rgba(200,90,110,.15);color:#f0a0b0}
+.empty{color:var(--muted);font-size:13px;padding:20px 0}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#211832;border:1px solid #a77cff55;padding:12px 18px;border-radius:10px;font-size:13px;display:none;z-index:9;max-width:90%}
+@media(max-width:560px){.stats{grid-template-columns:1fr}}
+html.auth-pending body{visibility:hidden}
+</style>
+<script>document.documentElement.classList.add("auth-pending");</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseClient = window.supabase.createClient(
+  "https://cgkiddhxbkuvdyghlpfc.supabase.co",
+  "sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy"
+);
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">SUPRO SMM<small>ADMIN</small></div>
+  <a href="dashboard.html" class="back">← Dashboard</a>
+</header>
+
+<main class="wrap">
+  <h1>Admin Panel</h1>
+
+  <section class="stats">
+    <div class="card"><div class="lbl">PENDING DEPOSITS</div><div class="num" id="sPending">0</div></div>
+    <div class="card"><div class="lbl">PENDING AMOUNT</div><div class="num" id="sAmount">৳0</div></div>
+    <div class="card"><div class="lbl">TOTAL USERS</div><div class="num" id="sUsers">0</div></div>
+  </section>
+
+  <h2>Pending deposits</h2>
+  <div id="pending"></div>
+
+  <h2>Recent history</h2>
+  <div id="recent"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const toast = document.getElementById("toast");
+let toastTimer;
+function showToast(text) {
+  toast.textContent = text;
+  toast.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.style.display = "none"; }, 3000);
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function metaLine(label, value) {
+  const line = el("div");
+  line.append(el("b", "", label + ": "), document.createTextNode(value));
+  return line;
+}
+
+function buildCard(d, name, withActions) {
+  const card = el("div", "card dep");
+
+  const top = el("div", "row");
+  top.append(el("div", "amt", "৳" + Number(d.amount).toFixed(2)));
+  const badge = el("span", "st " + d.status, d.status.charAt(0).toUpperCase() + d.status.slice(1));
+  top.appendChild(badge);
+  card.appendChild(top);
+
+  const meta = el("div", "meta");
+  meta.append(
+    metaLine("User", name),
+    metaLine("Method", d.method.toUpperCase()),
+    metaLine("Sender number", d.sender_number || "—"),
+    metaLine("TrxID", d.trx_id),
+    metaLine("Date", new Date(d.created_at).toLocaleString("en-GB"))
+  );
+  card.appendChild(meta);
+
+  if (withActions) {
+    const acts = el("div", "acts");
+    const approve = el("button", "btn ok", "Approve");
+    const reject = el("button", "btn no", "Reject");
+    approve.addEventListener("click", () => act(d, "approve_deposit", [approve, reject]));
+    reject.addEventListener("click", () => act(d, "reject_deposit", [approve, reject]));
+    acts.append(approve, reject);
+    card.appendChild(acts);
+  }
+  return card;
+}
+
+async function act(d, fn, buttons) {
+  const verb = fn === "approve_deposit" ? "Approve" : "Reject";
+  if (!confirm(verb + " ৳" + Number(d.amount).toFixed(2) + " (TrxID " + d.trx_id + ")?")) return;
+
+  buttons.forEach(b => { b.disabled = true; });
+  const { error } = await supabaseClient.rpc(fn, { p_deposit_id: d.id });
+
+  if (error) {
+    console.error(error);
+    showToast(error.message || "Failed");
+    buttons.forEach(b => { b.disabled = false; });
+    return;
+  }
+  showToast(verb === "Approve" ? "Approved. Balance added." : "Rejected.");
+  await loadAll();
+}
+
+async function loadAll() {
+  const { data: deps, error } = await supabaseClient
+    .from("deposits")
+    .select("id, user_id, method, amount, sender_number, trx_id, status, created_at")
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  if (error) { console.error(error); showToast("Could not load deposits."); return; }
+
+  const ids = [...new Set(deps.map(d => d.user_id))];
+  const names = {};
+  if (ids.length) {
+    const { data: profs } = await supabaseClient
+      .from("profiles").select("id, full_name, username").in("id", ids);
+    (profs || []).forEach(p => {
+      names[p.id] = (p.full_name || "No name") + (p.username ? " (@" + p.username + ")" : "");
+    });
+  }
+
+  const pending = deps.filter(d => d.status === "pending").reverse();
+  const done = deps.filter(d => d.status !== "pending").slice(0, 20);
+
+  document.getElementById("sPending").textContent = pending.length;
+  document.getElementById("sAmount").textContent =
+    "৳" + pending.reduce((sum, d) => sum + Number(d.amount), 0).toFixed(0);
+
+  const pendingBox = document.getElementById("pending");
+  pendingBox.replaceChildren(...(pending.length
+    ? pending.map(d => buildCard(d, names[d.user_id] || "Unknown", true))
+    : [el("div", "empty", "No pending deposits.")]));
+
+  const recentBox = document.getElementById("recent");
+  recentBox.replaceChildren(...(done.length
+    ? done.map(d => buildCard(d, names[d.user_id] || "Unknown", false))
+    : [el("div", "empty", "No history yet.")]));
+
+  const { count } = await supabaseClient
+    .from("profiles").select("id", { count: "exact", head: true });
+  document.getElementById("sUsers").textContent = count || 0;
+}
+
+(async function init() {
+  try {
+    const { data, error } = await supabaseClient.auth.getSession();
+    if (error || !data.session) { window.location.replace("index.html"); return; }
+
+    const { data: me } = await supabaseClient
+      .from("profiles").select("role").eq("id", data.session.user.id).maybeSingle();
+
+    if (!me || me.role !== "admin") { window.location.replace("dashboard.html"); return; }
+
+    document.documentElement.classList.remove("auth-pending");
+    await loadAll();
+  } catch (e) {
+    console.error(e);
+    window.location.replace("index.html");
+  }
+})();
+</script>
+</body>
+</html>
