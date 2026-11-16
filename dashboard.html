@@ -6,541 +6,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07152f">
 <title>Dashboard — Supro SMM</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --bg:#061126;
-  --navy:#091a38;
-  --card:#0b1d3c;
-  --card2:#0e2347;
-  --border:rgba(151,177,224,.13);
-  --text:#edf3ff;
-  --muted:#899bb9;
-  --purple:#8a78bd;
-  --purple-soft:#b5a5df;
-  --blue:#5c8fe5;
-  --green:#8bd6b1;
-}
+:root{--bg:#061126;--border:rgba(151,177,224,.13);--text:#edf3ff;--muted:#899bb9;--purple-soft:#b5a5df;--green:#8bd6b1}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  color:var(--text);
-  background:
-    radial-gradient(ellipse at 78% 5%,rgba(35,79,159,.22),transparent 35%),
-    radial-gradient(ellipse at 10% 80%,rgba(104,77,155,.09),transparent 35%),
-    var(--bg);
-  font-family:'DM Sans',sans-serif;
-}
+body{margin:0;color:var(--text);background:radial-gradient(ellipse at 78% 5%,rgba(35,79,159,.22),transparent 35%),radial-gradient(ellipse at 10% 80%,rgba(104,77,155,.09),transparent 35%),var(--bg);font-family:'DM Sans',sans-serif}
 button,input{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 .layout{display:flex;min-height:100vh}
-
-/* SIDEBAR */
-
-.sidebar{
-  width:248px;
-  flex-shrink:0;
-  padding:27px 17px;
-  display:flex;
-  flex-direction:column;
-  background:rgba(5,15,34,.88);
-  border-right:1px solid var(--border);
-  backdrop-filter:blur(20px);
-}
-.brand{
-  font:700 23px 'Space Grotesk';
-  letter-spacing:1px;
-  margin:4px 9px 43px;
-}
+.sidebar{width:248px;flex-shrink:0;padding:27px 17px;display:flex;flex-direction:column;background:rgba(5,15,34,.88);border-right:1px solid var(--border);backdrop-filter:blur(20px)}
+.brand{font:700 23px 'Space Grotesk';letter-spacing:1px;margin:4px 9px 43px}
 .brand span{color:var(--purple-soft)}
-.brand-mark{
-  display:inline-grid;
-  place-items:center;
-  width:31px;height:31px;
-  margin-right:7px;
-  border-radius:10px;
-  color:white;
-  background:linear-gradient(145deg,#315a9e,#55447e);
-  font-size:16px;
-}
-.nav-label{
-  color:#657a9c;
-  font-size:10px;
-  letter-spacing:2px;
-  margin:0 11px 12px;
-}
-.nav-link{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:13px 13px;
-  margin-bottom:6px;
-  border:1px solid transparent;
-  border-radius:11px;
-  color:#9aabc7;
-  font-size:13px;
-  transition:.2s;
-}
-.nav-link .nav-icon{
-  width:20px;
-  text-align:center;
-  font-size:16px;
-}
-.nav-link:hover{
-  background:#102447;
-  color:white;
-}
-.nav-link.active{
-  color:#fff;
-  background:linear-gradient(100deg,rgba(57,91,151,.32),rgba(95,76,133,.15));
-  border-color:rgba(125,151,206,.2);
-}
+.brand-mark{display:inline-grid;place-items:center;width:31px;height:31px;margin-right:7px;border-radius:10px;color:white;background:linear-gradient(145deg,#315a9e,#55447e);font-size:16px}
+.nav-label{color:#657a9c;font-size:10px;letter-spacing:2px;margin:0 11px 12px}
+.nav-link{display:flex;align-items:center;gap:12px;padding:13px;margin-bottom:6px;border:1px solid transparent;border-radius:11px;color:#9aabc7;font-size:13px;transition:.2s}
+.nav-link .nav-icon{width:20px;text-align:center;font-size:16px}
+.nav-link:hover{background:#102447;color:white}
+.nav-link.active{color:#fff;background:linear-gradient(100deg,rgba(57,91,151,.32),rgba(95,76,133,.15));border-color:rgba(125,151,206,.2)}
 .sidebar-bottom{margin-top:auto}
-.demo-note{
-  padding:14px;
-  margin:0 0 15px;
-  background:rgba(13,32,65,.7);
-  border:1px solid var(--border);
-  border-radius:12px;
-  color:#9eafd0;
-  font-size:11px;
-  line-height:1.7;
-}
-.demo-note strong{
-  display:block;
-  color:#b9a9e2;
-  font-size:10px;
-  letter-spacing:1.5px;
-  margin-bottom:5px;
-}
-.logout{
-  width:100%;
-  padding:12px;
-  color:#e7b5c2;
-  background:rgba(111,49,74,.13);
-  border:1px solid rgba(188,104,132,.2);
-  border-radius:10px;
-}
+.demo-note{padding:14px;margin:0 0 15px;background:rgba(13,32,65,.7);border:1px solid var(--border);border-radius:12px;color:#9eafd0;font-size:11px;line-height:1.7}
+.demo-note strong{display:block;color:#b9a9e2;font-size:10px;letter-spacing:1.5px;margin-bottom:5px}
+.logout{width:100%;padding:12px;color:#e7b5c2;background:rgba(111,49,74,.13);border:1px solid rgba(188,104,132,.2);border-radius:10px}
 .logout:hover{background:rgba(111,49,74,.25)}
 .logout:disabled{opacity:.5}
-
-/* MAIN */
-
-main{
-  flex:1;
-  min-width:0;
-  max-width:1600px;
-  padding:34px 38px;
-}
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:29px;
-}
-.eyebrow{
-  color:#91a8d3;
-  font-size:10px;
-  letter-spacing:2.2px;
-  font-weight:700;
-}
-h1{
-  font:700 30px 'Space Grotesk';
-  margin:8px 0 5px;
-}
+main{flex:1;min-width:0;max-width:1600px;padding:34px 38px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:29px}
+.eyebrow{color:#91a8d3;font-size:10px;letter-spacing:2.2px;font-weight:700}
+h1{font:700 30px 'Space Grotesk';margin:8px 0 5px}
 .muted{color:var(--muted);font-size:12px}
 .user-area{display:flex;align-items:center;gap:12px}
 .user-meta{text-align:right}
 .user-meta strong{display:block;font-size:12px}
 .user-meta small{color:var(--muted);font-size:10px}
-.avatar{
-  width:43px;height:43px;
-  display:grid;place-items:center;
-  border-radius:14px;
-  background:linear-gradient(145deg,#244d86,#57477f);
-  border:1px solid rgba(170,184,231,.28);
-  color:white;font-weight:800;
-}
-
-/* HERO */
-
-.hero{
-  position:relative;
-  overflow:hidden;
-  padding:29px;
-  min-height:225px;
-  border-radius:19px;
-  border:1px solid rgba(132,164,224,.2);
-  background:
-    radial-gradient(circle at 86% 30%,rgba(80,118,190,.23),transparent 25%),
-    linear-gradient(115deg,#102b55,#0b1b39 58%,#111b3a);
-  margin-bottom:20px;
-}
-.hero:after{
-  content:"";
-  position:absolute;
-  width:230px;height:230px;
-  right:7%;top:-100px;
-  border:1px solid rgba(166,179,224,.14);
-  border-radius:50%;
-  box-shadow:0 0 0 25px rgba(166,179,224,.025),
-             0 0 0 55px rgba(166,179,224,.02);
-  pointer-events:none;
-}
+.avatar{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#244d86,#57477f);border:1px solid rgba(170,184,231,.28);color:white;font-weight:800}
+.hero{position:relative;overflow:hidden;padding:29px;min-height:225px;border-radius:19px;border:1px solid rgba(132,164,224,.2);background:radial-gradient(circle at 86% 30%,rgba(80,118,190,.23),transparent 25%),linear-gradient(115deg,#102b55,#0b1b39 58%,#111b3a);margin-bottom:20px}
+.hero:after{content:"";position:absolute;width:230px;height:230px;right:7%;top:-100px;border:1px solid rgba(166,179,224,.14);border-radius:50%;box-shadow:0 0 0 25px rgba(166,179,224,.025),0 0 0 55px rgba(166,179,224,.02);pointer-events:none}
 .hero-content{position:relative;z-index:1;max-width:650px}
-.hero-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.hero-tag{
-  color:#c0b4e4;
-  font-size:10px;
-  letter-spacing:2px;
-}
+.hero-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.hero-tag{color:#c0b4e4;font-size:10px;letter-spacing:2px}
 .hero-date{color:#91a4c4;font-size:11px}
-.hero h2{
-  font:700 28px 'Space Grotesk';
-  margin:26px 0 9px;
-}
+.hero h2{font:700 28px 'Space Grotesk';margin:26px 0 9px}
 .hero h2 span{color:#b6a9e1}
-.hero p{
-  color:#a7b7d1;
-  font-size:12px;
-  line-height:1.8;
-  max-width:470px;
-  margin:0;
-}
-.hero-bottom{
-  display:flex;
-  gap:32px;
-  flex-wrap:wrap;
-  margin-top:24px;
-  padding-top:17px;
-  border-top:1px solid rgba(179,196,230,.13);
-}
-.hero-bottom small{
-  display:block;
-  color:#8298ba;
-  font-size:9px;
-  letter-spacing:1.3px;
-  margin-bottom:6px;
-}
+.hero p{color:#a7b7d1;font-size:12px;line-height:1.8;max-width:470px;margin:0}
+.hero-bottom{display:flex;gap:32px;flex-wrap:wrap;margin-top:24px;padding-top:17px;border-top:1px solid rgba(179,196,230,.13)}
+.hero-bottom small{display:block;color:#8298ba;font-size:9px;letter-spacing:1.3px;margin-bottom:6px}
 .hero-bottom strong{font:600 12px 'Space Grotesk'}
-.live-dot{
-  display:inline-block;
-  width:7px;height:7px;
-  border-radius:50%;
-  background:#82d5b0;
-  margin-right:7px;
-}
-
-/* SECTION HEADINGS */
-
-.section-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin:29px 0 14px;
-}
-.section-heading h3{
-  font:600 16px 'Space Grotesk';
-  margin:0;
-}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#82d5b0;margin-right:7px}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:29px 0 14px}
+.section-heading h3{font:600 16px 'Space Grotesk';margin:0}
 .section-heading small{color:var(--muted);font-size:10px}
-
-/* CARDS */
-
-.card{
-  background:linear-gradient(145deg,rgba(14,35,71,.94),rgba(9,26,54,.96));
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
-  min-width:0;
-  transition:transform .2s,border-color .2s;
-}
+.card{background:linear-gradient(145deg,rgba(14,35,71,.94),rgba(9,26,54,.96));border:1px solid var(--border);border-radius:15px;padding:20px;min-width:0;transition:transform .2s,border-color .2s}
 .card:hover{border-color:rgba(140,164,216,.27)}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-}
-.stat-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .stat-label{color:#91a4c2;font-size:11px}
-.stat-icon{
-  width:33px;height:33px;
-  display:grid;place-items:center;
-  border-radius:10px;
-  background:rgba(86,120,180,.15);
-  color:#b3c9ed;
-}
-.stat-value{
-  display:block;
-  font:700 24px 'Space Grotesk';
-  margin-top:14px;
-}
+.stat-icon{width:33px;height:33px;display:grid;place-items:center;border-radius:10px;background:rgba(86,120,180,.15);color:#b3c9ed}
+.stat-value{display:block;font:700 24px 'Space Grotesk';margin-top:14px}
 .stat-foot{color:#8094b3;font-size:10px;margin-top:6px}
-.demo-pill{
-  display:inline-block;
-  color:#c2b3e7;
-  background:rgba(117,94,164,.14);
-  border:1px solid rgba(153,126,199,.2);
-  border-radius:20px;
-  padding:4px 8px;
-  font-size:9px;
-}
-
-/* BALANCE */
-
-.balance-card{
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 100% 0%,rgba(104,87,158,.2),transparent 38%),
-    linear-gradient(120deg,#102a52,#0b1c3a);
-}
-.balance-card:after{
-  content:"";
-  position:absolute;
-  width:130px;height:130px;
-  right:-60px;bottom:-70px;
-  border:1px solid rgba(182,174,225,.13);
-  border-radius:50%;
-}
-.balance-number{
-  font:700 29px 'Space Grotesk';
-  margin:15px 0 7px;
-}
+.demo-pill{display:inline-block;color:#c2b3e7;background:rgba(117,94,164,.14);border:1px solid rgba(153,126,199,.2);border-radius:20px;padding:4px 8px;font-size:9px}
+.balance-card{position:relative;overflow:hidden;background:radial-gradient(circle at 100% 0%,rgba(104,87,158,.2),transparent 38%),linear-gradient(120deg,#102a52,#0b1c3a)}
+.balance-card:after{content:"";position:absolute;width:130px;height:130px;right:-60px;bottom:-70px;border:1px solid rgba(182,174,225,.13);border-radius:50%}
+.balance-number{font:700 29px 'Space Grotesk';margin:15px 0 7px}
 .balance-caption{color:#8fa3c4;font-size:10px}
-.balance-note{
-  margin-top:20px;
-  padding-top:13px;
-  border-top:1px solid var(--border);
-  color:#a7b7d1;
-  font-size:10px;
-}
-
-/* SERVICES */
-
-.services{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:13px;
-}
-.service-icon{
-  width:38px;height:38px;
-  display:grid;place-items:center;
-  background:rgba(93,123,177,.15);
-  border:1px solid rgba(135,162,209,.12);
-  border-radius:12px;
-  font-size:17px;
-  margin-bottom:15px;
-}
-.service-card h4{
-  font:600 13px 'Space Grotesk';
-  margin:0 0 7px;
-}
-.service-card p{
-  color:#899dbb;
-  font-size:10px;
-  line-height:1.6;
-  margin:0 0 13px;
-}
-.service-label{
-  color:#b9abd9;
-  font-size:9px;
-  letter-spacing:.5px;
-}
-
-/* ORDER TABLE */
-
+.balance-note{position:relative;z-index:1;margin-top:20px;padding-top:13px;border-top:1px solid var(--border);color:#a7b7d1;font-size:10px}
+.services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.service-icon{width:38px;height:38px;display:grid;place-items:center;background:rgba(93,123,177,.15);border:1px solid rgba(135,162,209,.12);border-radius:12px;font-size:17px;margin-bottom:15px}
+.service-card h4{font:600 13px 'Space Grotesk';margin:0 0 7px}
+.service-card p{color:#899dbb;font-size:10px;line-height:1.6;margin:0 0 13px}
+.service-label{color:#b9abd9;font-size:9px;letter-spacing:.5px}
 .table-wrap{overflow-x:auto}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:520px;
-}
-th{
-  color:#8297b7;
-  font-size:10px;
-  letter-spacing:.7px;
-  font-weight:600;
-  text-align:left;
-  padding:13px 10px;
-  border-bottom:1px solid var(--border);
-}
-td{
-  color:#c7d3e8;
-  font-size:11px;
-  padding:15px 10px;
-  border-bottom:1px solid rgba(151,177,224,.08);
-}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th{color:#8297b7;font-size:10px;letter-spacing:.7px;font-weight:600;text-align:left;padding:13px 10px;border-bottom:1px solid var(--border)}
+td{color:#c7d3e8;font-size:11px;padding:15px 10px;border-bottom:1px solid rgba(151,177,224,.08)}
 tr:last-child td{border-bottom:0}
 .order-id{color:#b6a8df;font-weight:700}
-.preview-status{
-  display:inline-block;
-  color:#b8c9e5;
-  background:rgba(89,124,178,.14);
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:9px;
-}
-
-/* PROFILE */
-
-.profile-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-.profile-row{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid rgba(151,177,224,.1);
-  font-size:11px;
-  overflow-wrap:anywhere;
-}
+.preview-status{display:inline-block;color:#b8c9e5;background:rgba(89,124,178,.14);padding:5px 9px;border-radius:20px;font-size:9px}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.profile-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid rgba(151,177,224,.1);font-size:11px;overflow-wrap:anywhere}
 .profile-row:last-child{border:0}
 .profile-row span{color:#899dbb}
 .profile-row b{text-align:right}
 .status{color:var(--green)}
-.edit-area{
-  border-top:1px solid var(--border);
-  margin-top:18px;
-  padding-top:20px;
-}
-.edit-area h4{
-  font:600 14px 'Space Grotesk';
-  margin:0 0 17px;
-}
-.field-label{
-  display:block;
-  color:#a4b5d0;
-  font-size:11px;
-  margin-bottom:8px;
-}
-.field-input{
-  width:100%;
-  padding:12px;
-  margin-bottom:15px;
-  background:#07152e;
-  color:white;
-  border:1px solid rgba(151,177,224,.2);
-  border-radius:9px;
-  outline:none;
-}
+.edit-area h4{font:600 14px 'Space Grotesk';margin:0 0 17px}
+.field-label{display:block;color:#a4b5d0;font-size:11px;margin-bottom:8px}
+.field-input{width:100%;padding:12px;margin-bottom:15px;background:#07152e;color:white;border:1px solid rgba(151,177,224,.2);border-radius:9px;outline:none}
 .field-input:focus{border-color:#8d82bc}
-.save-btn{
-  width:100%;
-  padding:12px;
-  color:white;
-  background:linear-gradient(110deg,#31598e,#51477d);
-  border:1px solid rgba(165,173,224,.24);
-  border-radius:10px;
-}
+.save-btn{width:100%;padding:12px;color:white;background:linear-gradient(110deg,#31598e,#51477d);border:1px solid rgba(165,173,224,.24);border-radius:10px}
 .save-btn:disabled{opacity:.5;cursor:not-allowed}
-
-/* HEALTH */
-
-.health-track{
-  height:6px;
-  border-radius:20px;
-  overflow:hidden;
-  background:#172b4a;
-  margin-top:15px;
-}
-.health-fill{
-  width:0;height:100%;
-  border-radius:20px;
-  background:linear-gradient(90deg,#477bb9,#a494d0);
-  transition:width .5s;
-}
-.health-percent{
-  font:700 21px 'Space Grotesk';
-  color:#b8a9e0;
-}
-.health-caption{
-  color:#899dbb;
-  font-size:10px;
-  line-height:1.6;
-  margin:12px 0 0;
-}
-.health-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-.health-heading h3{
-  font:600 14px 'Space Grotesk';
-  margin:0;
-}
-.footer-note{
-  text-align:center;
-  color:#5e7394;
-  font-size:10px;
-  margin:30px 0 5px;
-}
-
-@media(max-width:1050px){
-  main{padding:28px 22px}
-  .services{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:800px){
-  .sidebar{width:205px}
-  .stats{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .layout{display:block}
-  .sidebar{
-    width:100%;
-    padding:17px;
-    border-right:0;
-    border-bottom:1px solid var(--border);
-  }
-  .brand{margin:0 0 18px}
-  .nav-label{margin-top:7px}
-  .sidebar nav{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:5px;
-  }
-  .nav-link{margin:0;padding:11px 9px;font-size:11px}
-  .sidebar-bottom{margin-top:15px}
-  .demo-note{margin-bottom:10px}
-  main{padding:23px 15px}
-  .topbar{margin-bottom:22px}
-  h1{font-size:25px}
-  .user-meta{display:none}
-  .hero{padding:21px;min-height:0}
-  .hero h2{font-size:23px;margin-top:23px}
-  .hero:after{right:-100px}
-  .hero-bottom{gap:20px}
-  .stats{grid-template-columns:1fr}
-  .services{grid-template-columns:1fr 1fr;gap:10px}
-  .service-card{padding:15px}
-  .profile-grid{grid-template-columns:1fr}
-}
-@media(max-width:360px){
-  .services{grid-template-columns:1fr}
-}
+.health-track{height:6px;border-radius:20px;overflow:hidden;background:#172b4a;margin-top:15px}
+.health-fill{width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#477bb9,#a494d0);transition:width .5s}
+.health-percent{font:700 21px 'Space Grotesk';color:#b8a9e0}
+.health-caption{color:#899dbb;font-size:10px;line-height:1.6;margin:12px 0 0}
+.health-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.health-heading h3{font:600 14px 'Space Grotesk';margin:0}
+.footer-note{text-align:center;color:#5e7394;font-size:10px;margin:30px 0 5px}
+@media(max-width:1050px){main{padding:28px 22px}.services{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.sidebar{width:205px}.stats{grid-template-columns:1fr}}
+@media(max-width:600px){.layout{display:block}.sidebar{width:100%;padding:17px;border-right:0;border-bottom:1px solid var(--border)}.brand{margin:0 0 18px}.nav-label{margin-top:7px}.sidebar nav{display:grid;grid-template-columns:1fr 1fr;gap:5px}.nav-link{margin:0;padding:11px 9px;font-size:11px}.sidebar-bottom{margin-top:15px}.demo-note{margin-bottom:10px}main{padding:23px 15px}.topbar{margin-bottom:22px}h1{font-size:25px}.user-meta{display:none}.hero{padding:21px;min-height:0}.hero h2{font-size:23px;margin-top:23px}.hero:after{right:-100px}.hero-bottom{gap:20px}.stats{grid-template-columns:1fr}.services{grid-template-columns:1fr 1fr;gap:10px}.service-card{padding:15px}.profile-grid{grid-template-columns:1fr}}
+@media(max-width:360px){.services{grid-template-columns:1fr}}
 </style>
 </head>
 
@@ -555,6 +122,7 @@ tr:last-child td{border-bottom:0}
     <a class="nav-link active" href="#overview"><span class="nav-icon">◈</span> Overview</a>
     <a class="nav-link" href="#balance"><span class="nav-icon">◇</span> Balance</a>
     <a class="nav-link" href="services.html"><span class="nav-icon">▦</span> Services</a>
+    <a class="nav-link" href="add-funds.html"><span class="nav-icon">＋</span> Add Funds</a>
     <a class="nav-link" href="#orders"><span class="nav-icon">≡</span> Order History</a>
 
     <div class="nav-label" style="margin-top:24px">ACCOUNT</div>
@@ -565,7 +133,7 @@ tr:last-child td{border-bottom:0}
   <div class="sidebar-bottom">
     <div class="demo-note">
       <strong>✦ DEMO ENVIRONMENT</strong>
-      This is a visual preview. No real orders, services or payments are available.
+      This is a visual preview. No real orders or services are available yet.
     </div>
     <button class="logout" id="logoutBtn">↪ Sign out</button>
   </div>
@@ -588,22 +156,14 @@ tr:last-child td{border-bottom:0}
     </div>
   </header>
 
-  <!-- HERO -->
-
   <section class="hero">
     <div class="hero-content">
       <div class="hero-top">
         <div class="hero-tag">✦ THE BLUE HORIZON</div>
         <div class="hero-date" id="pulseDate">Loading date...</div>
       </div>
-
       <h2 id="greeting">Welcome back, <span>there</span>.</h2>
-
-      <p>
-        Your space, your progress. Everything you need to explore
-        this demo workspace is arranged in one place.
-      </p>
-
+      <p>Your space, your progress. Everything you need to explore this demo workspace is arranged in one place.</p>
       <div class="hero-bottom">
         <div>
           <small>WORKSPACE STATUS</small>
@@ -617,8 +177,6 @@ tr:last-child td{border-bottom:0}
     </div>
   </section>
 
-  <!-- OVERVIEW STATS -->
-
   <div class="section-heading">
     <h3>Workspace Overview</h3>
     <span class="demo-pill">DEMO DATA</span>
@@ -630,9 +188,9 @@ tr:last-child td{border-bottom:0}
         <span class="stat-label">Available balance</span>
         <span class="stat-icon">◇</span>
       </div>
-      <div class="balance-number">৳0.00</div>
-      <div class="balance-caption">Demo balance · Not withdrawable</div>
-      <div class="balance-note">Real deposits and payments are disabled.</div>
+      <div class="balance-number" id="balanceNumber">৳0.00</div>
+      <div class="balance-caption">Your wallet balance</div>
+      <div class="balance-note"><a href="add-funds.html" style="color:#b5a5df;font-weight:700">+ Add Funds ↗</a></div>
     </div>
 
     <div class="card">
@@ -654,14 +212,10 @@ tr:last-child td{border-bottom:0}
     </div>
   </section>
 
-  <!-- SERVICES -->
-
-<div class="section-heading" id="services">
-  <h3>Explore Services</h3>
-  <a href="services.html" style="color:#b5a5df;font-size:11px;font-weight:700">
-    Explore All Services ↗
-  </a>
-</div>
+  <div class="section-heading" id="services">
+    <h3>Explore Services</h3>
+    <a href="services.html" style="color:#b5a5df;font-size:11px;font-weight:700">Explore All Services ↗</a>
+  </div>
 
   <section class="services">
     <article class="card service-card">
@@ -670,21 +224,18 @@ tr:last-child td{border-bottom:0}
       <p>Organize ideas and build a consistent content calendar.</p>
       <span class="service-label">DEMO CATEGORY</span>
     </article>
-
     <article class="card service-card">
       <div class="service-icon">◎</div>
       <h4>Profile Audit</h4>
       <p>Review profile presentation and basic improvements.</p>
       <span class="service-label">DEMO CATEGORY</span>
     </article>
-
     <article class="card service-card">
       <div class="service-icon">⌁</div>
       <h4>Analytics Report</h4>
       <p>Understand sample performance metrics and trends.</p>
       <span class="service-label">DEMO CATEGORY</span>
     </article>
-
     <article class="card service-card">
       <div class="service-icon">✎</div>
       <h4>Caption Review</h4>
@@ -692,8 +243,6 @@ tr:last-child td{border-bottom:0}
       <span class="service-label">DEMO CATEGORY</span>
     </article>
   </section>
-
-  <!-- ORDER HISTORY -->
 
   <div class="section-heading" id="orders">
     <h3>Recent Activity</h3>
@@ -704,41 +253,17 @@ tr:last-child td{border-bottom:0}
     <div class="table-wrap">
       <table>
         <thead>
-          <tr>
-            <th>REFERENCE</th>
-            <th>ACTIVITY</th>
-            <th>DATE</th>
-            <th>STATUS</th>
-          </tr>
+          <tr><th>REFERENCE</th><th>ACTIVITY</th><th>DATE</th><th>STATUS</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="order-id">DEMO-001</td>
-            <td>Profile Audit</td>
-            <td>Sample date</td>
-            <td><span class="preview-status">Preview</span></td>
-          </tr>
-          <tr>
-            <td class="order-id">DEMO-002</td>
-            <td>Content Planning</td>
-            <td>Sample date</td>
-            <td><span class="preview-status">Preview</span></td>
-          </tr>
-          <tr>
-            <td class="order-id">DEMO-003</td>
-            <td>Analytics Report</td>
-            <td>Sample date</td>
-            <td><span class="preview-status">Preview</span></td>
-          </tr>
+          <tr><td class="order-id">DEMO-001</td><td>Profile Audit</td><td>Sample date</td><td><span class="preview-status">Preview</span></td></tr>
+          <tr><td class="order-id">DEMO-002</td><td>Content Planning</td><td>Sample date</td><td><span class="preview-status">Preview</span></td></tr>
+          <tr><td class="order-id">DEMO-003</td><td>Analytics Report</td><td>Sample date</td><td><span class="preview-status">Preview</span></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="muted" style="font-size:10px;margin:15px 0 0">
-      These entries are fictional examples, not actual customer orders.
-    </p>
+    <p class="muted" style="font-size:10px;margin:15px 0 0">These entries are fictional examples, not actual customer orders.</p>
   </section>
-
-  <!-- PROFILE HEALTH -->
 
   <div class="section-heading">
     <h3>Account Progress</h3>
@@ -749,15 +274,9 @@ tr:last-child td{border-bottom:0}
       <h3>Profile Health</h3>
       <div class="health-percent" id="healthPercent">0%</div>
     </div>
-    <div class="health-track">
-      <div class="health-fill" id="healthFill"></div>
-    </div>
-    <p class="health-caption" id="healthCaption">
-      Checking your profile information...
-    </p>
+    <div class="health-track"><div class="health-fill" id="healthFill"></div></div>
+    <p class="health-caption" id="healthCaption">Checking your profile information...</p>
   </section>
-
-  <!-- ACCOUNT INFORMATION + QUICK EDIT -->
 
   <div class="section-heading" id="profile">
     <h3>Your Account</h3>
@@ -765,118 +284,68 @@ tr:last-child td{border-bottom:0}
   </div>
 
   <section class="profile-grid">
-
     <div class="card">
-      <h3 style="font:600 15px 'Space Grotesk';margin:0 0 15px">
-        Account Information
-      </h3>
-
-      <div class="profile-row">
-        <span>Full name</span>
-        <b id="profileName">Loading...</b>
-      </div>
-      <div class="profile-row">
-        <span>Username</span>
-        <b id="profileUsername">Loading...</b>
-      </div>
-      <div class="profile-row">
-        <span>Email address</span>
-        <b id="profileEmail">Loading...</b>
-      </div>
-      <div class="profile-row">
-        <span>Account status</span>
-        <b class="status">Active</b>
-      </div>
-      <div class="profile-row">
-        <span>Workspace</span>
-        <b>Demo</b>
-      </div>
+      <h3 style="font:600 15px 'Space Grotesk';margin:0 0 15px">Account Information</h3>
+      <div class="profile-row"><span>Full name</span><b id="profileName">Loading...</b></div>
+      <div class="profile-row"><span>Username</span><b id="profileUsername">Loading...</b></div>
+      <div class="profile-row"><span>Email address</span><b id="profileEmail">Loading...</b></div>
+      <div class="profile-row"><span>Account status</span><b class="status">Active</b></div>
+      <div class="profile-row"><span>Workspace</span><b>Demo</b></div>
     </div>
 
     <div class="card">
-      <div class="edit-area" style="border:0;padding:0;margin:0">
+      <div class="edit-area">
         <h4>Quick Edit</h4>
-
         <form id="editProfileForm">
           <label class="field-label" for="editFullName">Full name</label>
-          <input class="field-input" type="text" id="editFullName"
-                 maxlength="60" required>
-
+          <input class="field-input" type="text" id="editFullName" maxlength="60" required>
           <label class="field-label" for="editUsername">Username</label>
-          <input class="field-input" type="text" id="editUsername"
-                 placeholder="Choose a username" maxlength="20">
-
-          <button type="submit" class="save-btn" id="saveBtn">
-            Save Changes
-          </button>
+          <input class="field-input" type="text" id="editUsername" placeholder="Choose a username" maxlength="20">
+          <button type="submit" class="save-btn" id="saveBtn">Save Changes</button>
         </form>
       </div>
     </div>
-
   </section>
 
-  <div class="footer-note">
-    SUPRO SMM · THE BLUE HORIZON · PERSONAL DEMO WORKSPACE
-  </div>
+  <div class="footer-note">SUPRO SMM · THE BLUE HORIZON · PERSONAL DEMO WORKSPACE</div>
 
 </main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 const SUPABASE_URL = 'https://cgkiddhxbkuvdyghlpfc.supabase.co';
-
-/* Paste the same existing publishable key from your current dashboard.html */
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy';
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 /* GREETING AND DATE */
-
 function updatePulse() {
   const hour = new Date().getHours();
   let greeting = 'Good evening';
-
-  if (hour >= 5 && hour < 12) {
-    greeting = 'Good morning';
-  } else if (hour >= 12 && hour < 17) {
-    greeting = 'Good afternoon';
-  }
+  if (hour >= 5 && hour < 12) greeting = 'Good morning';
+  else if (hour >= 12 && hour < 17) greeting = 'Good afternoon';
 
   document.getElementById('greeting').innerHTML =
     `${greeting}, <span id="greetingName">there</span>.`;
 
   document.getElementById('pulseDate').textContent =
     new Intl.DateTimeFormat('en-BD', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
     }).format(new Date());
 }
 
 /* PROFILE HEALTH */
-
 function updateProfileHealth(profile, email) {
   const checks = [
     Boolean(profile.full_name && profile.full_name.trim()),
     Boolean(profile.username && profile.username.trim()),
     Boolean(email)
   ];
-
   const completed = checks.filter(Boolean).length;
   const percent = Math.round((completed / checks.length) * 100);
 
-  document.getElementById('healthPercent').textContent =
-    percent + '%';
-
-  document.getElementById('healthFill').style.width =
-    percent + '%';
-
+  document.getElementById('healthPercent').textContent = percent + '%';
+  document.getElementById('healthFill').style.width = percent + '%';
   document.getElementById('healthCaption').textContent =
     percent === 100
       ? 'Your basic profile information is complete.'
@@ -884,22 +353,19 @@ function updateProfileHealth(profile, email) {
 }
 
 /* LOAD DASHBOARD */
-
 async function loadDashboard() {
-  const { data: { user }, error } =
-    await supabaseClient.auth.getUser();
+  const { data: { user }, error } = await supabaseClient.auth.getUser();
 
   if (error || !user) {
     window.location.replace('index.html');
     return;
   }
 
-  const { data: profile, error: profileError } =
-    await supabaseClient
-      .from('profiles')
-      .select('full_name, username')
-      .eq('id', user.id)
-      .single();
+  const { data: profile, error: profileError } = await supabaseClient
+    .from('profiles')
+    .select('full_name, username')
+    .eq('id', user.id)
+    .single();
 
   if (profileError) {
     console.error(profileError);
@@ -907,36 +373,29 @@ async function loadDashboard() {
     return;
   }
 
-  const name =
-    profile.full_name ||
-    profile.username ||
-    user.email.split('@')[0];
+  const name = profile.full_name || profile.username || user.email.split('@')[0];
 
-  document.getElementById('editFullName').value =
-    profile.full_name || '';
-
-  document.getElementById('editUsername').value =
-    profile.username || '';
-
+  document.getElementById('editFullName').value = profile.full_name || '';
+  document.getElementById('editUsername').value = profile.username || '';
   document.getElementById('profileName').textContent = name;
   document.getElementById('profileUsername').textContent =
     profile.username ? '@' + profile.username : 'Not set';
-
-  document.getElementById('profileEmail').textContent =
-    user.email;
-
-  document.getElementById('avatar').textContent =
-    name.charAt(0).toUpperCase();
-
+  document.getElementById('profileEmail').textContent = user.email;
+  document.getElementById('avatar').textContent = name.charAt(0).toUpperCase();
   document.getElementById('topName').textContent = name;
   document.getElementById('greetingName').textContent = name;
   document.getElementById('pulseAccount').textContent = 'Active';
 
   updateProfileHealth(profile, user.email);
+
+  /* REAL WALLET BALANCE */
+  const { data: wallet } = await supabaseClient
+    .from('wallets').select('balance').eq('user_id', user.id).maybeSingle();
+  document.getElementById('balanceNumber').textContent =
+    '৳' + Number(wallet ? wallet.balance : 0).toFixed(2);
 }
 
 /* LOGOUT */
-
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   const button = document.getElementById('logoutBtn');
   button.disabled = true;
@@ -950,22 +409,16 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
     button.textContent = '↪ Sign out';
     return;
   }
-
   window.location.replace('index.html');
 });
 
 /* QUICK PROFILE EDIT */
-
 document.getElementById('editProfileForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const button = document.getElementById('saveBtn');
-
-  const fullName =
-    document.getElementById('editFullName').value.trim();
-
-  const username =
-    document.getElementById('editUsername').value.trim().toLowerCase();
+  const fullName = document.getElementById('editFullName').value.trim();
+  const username = document.getElementById('editUsername').value.trim().toLowerCase();
 
   if (!fullName) {
     alert('Please enter your full name.');
@@ -981,48 +434,30 @@ document.getElementById('editProfileForm').addEventListener('submit', async (eve
   button.textContent = 'Saving...';
 
   try {
-    const { data: { user }, error: userError } =
-      await supabaseClient.auth.getUser();
-
-    if (userError || !user) {
-      throw new Error('Please sign in again.');
-    }
+    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+    if (userError || !user) throw new Error('Please sign in again.');
 
     const { error } = await supabaseClient
       .from('profiles')
-      .update({
-        full_name: fullName,
-        username: username || null
-      })
+      .update({ full_name: fullName, username: username || null })
       .eq('id', user.id);
 
     if (error) {
-      if (error.code === '23505') {
-        throw new Error('This username is already taken.');
-      }
+      if (error.code === '23505') throw new Error('This username is already taken.');
       throw error;
     }
 
     document.getElementById('profileName').textContent = fullName;
-    document.getElementById('profileUsername').textContent =
-      username ? '@' + username : 'Not set';
-
-    document.getElementById('avatar').textContent =
-      fullName.charAt(0).toUpperCase();
-
+    document.getElementById('profileUsername').textContent = username ? '@' + username : 'Not set';
+    document.getElementById('avatar').textContent = fullName.charAt(0).toUpperCase();
     document.getElementById('topName').textContent = fullName;
     document.getElementById('greetingName').textContent = fullName;
 
-    updateProfileHealth({
-      full_name: fullName,
-      username: username
-    }, user.email);
-
+    updateProfileHealth({ full_name: fullName, username: username }, user.email);
     alert('Profile updated successfully!');
 
   } catch (error) {
     alert(error.message);
-
   } finally {
     button.disabled = false;
     button.textContent = 'Save Changes';
@@ -1030,11 +465,8 @@ document.getElementById('editProfileForm').addEventListener('submit', async (eve
 });
 
 /* START */
-
 updatePulse();
 loadDashboard();
 </script>
-
 </body>
 </html>
-
