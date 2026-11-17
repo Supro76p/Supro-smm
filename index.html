@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0B0614">
 <title>Supro SMM | Order social media services from one dashboard</title>
 <meta name="description" content="Pick a platform, add funds with bKash or Nagad, and place your order. Track every order from your Supro SMM account.">
 <meta property="og:title" content="Supro SMM">
@@ -16,7 +16,7 @@
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
 :root{--s2:2px;--s4:4px;--s8:8px;--s12:12px;--s16:16px;--s24:24px;--s32:32px;--s40:40px;--s48:48px;--s64:64px;--s80:80px;--s96:96px;
---bg:#000000;--surface:#181818;--surface2:#1F1F1F;--line:#313131;--text:#FFFFFF;--muted:#9B9B9B;--accent:#8B5CF6;--accent-text:#C4B5FD;--ease:cubic-bezier(0.22,1,0.36,1)}
+--bg:#0B0614;--surface:#140D24;--surface2:#1C1233;--line:#2E1F4D;--text:#F7F1FF;--muted:#A69AB8;--accent:#8B5CF6;--accent-text:#C4B5FD;--ease:cubic-bezier(0.22,1,0.36,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:96px}
 body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-size:16px;line-height:24px;font-weight:400;overflow-x:hidden}
@@ -56,7 +56,7 @@ section{padding-block:var(--s96)}
 .btn:disabled{opacity:.5;cursor:wait}
 
 /* nav */
-.nav{position:fixed;top:var(--s16);left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:var(--s24);padding:var(--s8);width:max-content;max-width:calc(100% - var(--s32));background:rgba(24,24,24,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:16px}
+.nav{position:fixed;top:var(--s16);left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:var(--s24);padding:var(--s8);width:max-content;max-width:calc(100% - var(--s32));background:rgba(20,13,36,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:16px}
 .brand{display:inline-flex;align-items:center;gap:var(--s8);padding-inline:var(--s8);font-weight:700}
 .brand i{display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--accent);font-style:normal;font-size:14px;line-height:20px}
 .nav-links{display:flex;align-items:center;gap:var(--s4);list-style:none}
@@ -67,7 +67,7 @@ section{padding-block:var(--s96)}
 .toggle span:first-child{top:16px}.toggle span:last-child{top:24px}
 .toggle[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg)}
 .toggle[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg)}
-.menu{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:center;gap:var(--s8);padding:var(--s96) var(--s24) var(--s48);background:rgba(0,0,0,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
+.menu{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:center;gap:var(--s8);padding:var(--s96) var(--s24) var(--s48);background:rgba(11,6,20,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
 .menu.open{opacity:1;visibility:visible}
 .menu a,.menu button{opacity:0;transform:translateY(var(--s24));transition:opacity 500ms var(--ease),transform 500ms var(--ease);font-size:30px;line-height:36px;font-weight:600;text-align:left;padding:var(--s8) 0;background:none;border:0;cursor:pointer}
 .menu.open a,.menu.open button{opacity:1;transform:none;transition-delay:calc(var(--i)*60ms)}
@@ -100,7 +100,7 @@ section{padding-block:var(--s96)}
 .sec-head p{margin-top:var(--s16);color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s16)}
 .card{padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:24px;transition:transform 500ms var(--ease),border-color 300ms var(--ease)}
-.card:hover{transform:translateY(-4px);border-color:#4a4a4a}
+.card:hover{transform:translateY(-4px);border-color:#5B3FA0}
 .ico{display:grid;place-items:center;width:40px;height:40px;margin-bottom:var(--s16);border-radius:8px;background:var(--surface2);border:1px solid var(--line);font-size:20px;color:var(--accent-text)}
 .card h3{margin-bottom:var(--s8)}
 .card p{padding-inline:var(--s4)}
@@ -122,7 +122,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s32)}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:var(--s16);flex-wrap:wrap}
 
 /* modal */
-.backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s16);background:rgba(0,0,0,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
+.backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s16);background:rgba(11,6,20,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
 .backdrop.open{opacity:1;visibility:visible}
 .modal{position:relative;width:min(100%,400px);padding:var(--s24);background:var(--surface);border:1px solid var(--line);border-radius:24px;transform:translateY(var(--s24));transition:transform 500ms var(--ease)}
 .backdrop.open .modal{transform:none}
@@ -138,6 +138,45 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:v
 .switch{margin-top:var(--s16);text-align:center}
 .switch button{background:none;border:0;cursor:pointer;color:var(--accent-text);font-weight:600}
 
+
+/* ambient motion */
+.orb{position:fixed;width:480px;height:480px;border-radius:50%;filter:blur(120px);opacity:.3;z-index:-1;pointer-events:none;will-change:transform}
+.o1{top:-160px;left:-160px;background:#7C3AED;animation:drift1 16s cubic-bezier(.45,0,.55,1) infinite alternate}
+.o2{bottom:-200px;right:-200px;background:#5B21B6;animation:drift2 20s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes drift1{to{transform:translate(120px,80px)}}
+@keyframes drift2{to{transform:translate(-120px,-80px)}}
+@keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes navin{from{opacity:0;transform:translate(-50%,-24px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.nav{animation:navin 700ms var(--ease) both}
+.hero h1{animation:rise 800ms var(--ease) 100ms both}
+.hero p.lead{animation:rise 800ms var(--ease) 220ms both}
+.hero-cta{animation:rise 800ms var(--ease) 340ms both}
+.hero .mock{animation:rise 800ms var(--ease) 480ms both,float 6s cubic-bezier(.45,0,.55,1) 1400ms infinite}
+.mock-row{animation:rise 600ms var(--ease) both}
+.mock-row:nth-of-type(1){animation-delay:700ms}.mock-row:nth-of-type(2){animation-delay:800ms}.mock-row:nth-of-type(3){animation-delay:900ms}
+.btn-primary i{transition:transform 500ms var(--ease)}
+.btn-primary:hover i{transform:translateX(4px)}
+@media(prefers-reduced-motion:reduce){
+ .orb,.hero .mock{animation:none}
+ .nav,.hero h1,.hero p.lead,.hero-cta,.mock-row{animation:fade 300ms linear both}
+}
+
+/* sky hero */
+.hero{position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:1}
+.sky{position:absolute;inset:0;z-index:0;pointer-events:none}
+.layer{position:absolute;will-change:transform}
+.cloud{display:block;color:#C4B5FD;animation:sway var(--d,26s) cubic-bezier(.45,0,.55,1) infinite alternate}
+.cloud svg{display:block;width:100%;height:auto;fill:currentColor}
+@keyframes sway{to{transform:translateX(var(--x,80px))}}
+.star{position:absolute;border-radius:50%;background:#F7F1FF;opacity:.15;animation:twinkle var(--t,4s) cubic-bezier(.45,0,.55,1) var(--o,0s) infinite alternate}
+@keyframes twinkle{to{opacity:.9}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s16);max-width:680px;margin:var(--s48) auto 0}
+.stats>div{padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.stats .num{color:var(--text)}
+@media(prefers-reduced-motion:reduce){.cloud{animation:none}.star{animation:none;opacity:.6}}
 @media(max-width:700px){
  .nav-links{display:none}.toggle{display:block}.nav{gap:var(--s16)}
  .heading-1{font-size:36px;line-height:40px}
@@ -159,6 +198,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:v
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="orb o1" aria-hidden="true"></div><div class="orb o2" aria-hidden="true"></div>
 
 <header class="nav" id="top">
   <a class="brand button-sm" href="#home"><i>S</i>Supro SMM</a>
@@ -182,12 +222,18 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:v
 
 <main id="main">
   <section class="hero" id="home">
+    <div class="sky" id="sky" aria-hidden="true"></div>
     <div class="wrap">
       <h1 class="heading-1">Order social media services<br>from one simple dashboard</h1>
       <p class="lead body-3">Pick a platform, add funds with bKash or Nagad, and place your order. Track every order from your account.</p>
       <div class="hero-cta">
         <a class="btn btn-primary button-md" href="#" data-auth="signup" id="heroCta">Create free account <i class="ph ph-arrow-right"></i></a>
         <span class="chip caption-4"><i class="ph ph-device-mobile"></i>Pay with bKash or Nagad</span>
+      </div>
+            <div class="stats reveal" id="stats">
+        <div><div class="heading-3 num" data-count="5">0</div><div class="body-6 muted">Platforms</div></div>
+        <div><div class="heading-3 num" data-count="50" data-prefix="৳">0</div><div class="body-6 muted">Minimum deposit</div></div>
+        <div><div class="heading-3 num" data-count="2">0</div><div class="body-6 muted">Payment methods</div></div>
       </div>
       <div class="mock" aria-label="Example order status">
         <div class="mock-head"><span class="title-2">Example order</span><span class="caption-4 muted">Status</span></div>
@@ -279,6 +325,67 @@ const supabaseClient = window.supabase.createClient(
 const $ = (id) => document.getElementById(id);
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 $("year").textContent = new Date().getFullYear();
+
+
+/* sky: stars, drifting clouds, scroll parallax */
+(function () {
+  const sky = $("sky");
+  for (let i = 0; i < 36; i++) {
+    const st = document.createElement("i");
+    st.className = "star";
+    const size = Math.random() < 0.3 ? 4 : 2;
+    st.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;width:${size}px;height:${size}px;--t:${(3 + Math.random() * 4).toFixed(1)}s;--o:${(Math.random() * 4).toFixed(1)}s`;
+    sky.appendChild(st);
+  }
+  const cloudSvg = '<svg viewBox="0 0 200 80"><ellipse cx="50" cy="55" rx="40" ry="22"/><ellipse cx="95" cy="38" rx="45" ry="30"/><ellipse cx="145" cy="55" rx="42" ry="22"/><ellipse cx="98" cy="60" rx="75" ry="18"/></svg>';
+  const defs = [
+    { top: "6%",  left: "-6%", w: 320, op: 0.16, d: 26, x: 90,   speed: 0.10 },
+    { top: "34%", left: "62%", w: 420, op: 0.11, d: 34, x: -110, speed: 0.18 },
+    { top: "62%", left: "8%",  w: 360, op: 0.13, d: 30, x: 100,  speed: 0.26 }
+  ];
+  const layers = defs.map(c => {
+    const layer = document.createElement("div");
+    layer.className = "layer";
+    layer.style.cssText = `top:${c.top};left:${c.left};width:${c.w}px;opacity:${c.op}`;
+    const cl = document.createElement("div");
+    cl.className = "cloud";
+    cl.style.cssText = `--d:${c.d}s;--x:${c.x}px`;
+    cl.innerHTML = cloudSvg;
+    layer.appendChild(cl);
+    sky.appendChild(layer);
+    return { layer, speed: c.speed };
+  });
+  if (reduce) return;
+  let ticking = false;
+  function update() {
+    const y = Math.min(window.scrollY, 900);
+    layers.forEach(l => { l.layer.style.transform = `translate3d(0,${(-y * l.speed).toFixed(1)}px,0)`; });
+    ticking = false;
+  }
+  window.addEventListener("scroll", () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+})();
+
+/* count up numbers */
+(function () {
+  const nums = document.querySelectorAll("[data-count]");
+  function show(el, v) { el.textContent = (el.dataset.prefix || "") + Math.round(v); }
+  if (reduce) { nums.forEach(el => show(el, Number(el.dataset.count))); return; }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      obs.unobserve(e.target);
+      const el = e.target, end = Number(el.dataset.count), t0 = performance.now(), dur = 1400;
+      (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        show(el, end * (1 - Math.pow(1 - p, 4)));
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }, { threshold: 0.6 });
+  nums.forEach(el => obs.observe(el));
+})();
 
 /* mobile menu */
 const toggle = $("toggle"), menu = $("menu");
