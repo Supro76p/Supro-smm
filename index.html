@@ -1,125 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09070f">
-  <meta name="description" content="Supro SMM — a premium social media growth services demo website.">
-  <title>Supro SMM — Grow with confidence</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#000000">
+<title>Supro SMM | Order social media services from one dashboard</title>
+<meta name="description" content="Pick a platform, add funds with bKash or Nagad, and place your order. Track every order from your Supro SMM account.">
+<meta property="og:title" content="Supro SMM">
+<meta property="og:description" content="Order social media services from one simple dashboard.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238B5CF6'/%3E%3Ctext x='16' y='22' font-size='18' font-weight='700' text-anchor='middle' fill='white' font-family='sans-serif'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+:root{--s2:2px;--s4:4px;--s8:8px;--s12:12px;--s16:16px;--s24:24px;--s32:32px;--s40:40px;--s48:48px;--s64:64px;--s80:80px;--s96:96px;
+--bg:#000000;--surface:#181818;--surface2:#1F1F1F;--line:#313131;--text:#FFFFFF;--muted:#9B9B9B;--accent:#8B5CF6;--accent-text:#C4B5FD;--ease:cubic-bezier(0.22,1,0.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-size:16px;line-height:24px;font-weight:400;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px}
+.skip{position:absolute;left:var(--s16);top:-96px;background:var(--text);color:#000;padding:var(--s8) var(--s12);border-radius:8px;z-index:60}
+.skip:focus{top:var(--s16)}
+h1,h2,h3,h4{text-wrap:balance;font-weight:600}
+p,summary{text-wrap:pretty}
+
+/* text styles */
+.heading-1{font-size:60px;line-height:60px;font-weight:600}
+.heading-2{font-size:48px;line-height:48px;font-weight:600}
+.heading-3{font-size:36px;line-height:40px;font-weight:600}
+.title-2{font-size:18px;line-height:28px;font-weight:500}
+.body-3{font-size:16px;line-height:24px;font-weight:400}
+.body-6{font-size:14px;line-height:20px;font-weight:400}
+.button-md{font-size:16px;line-height:24px;font-weight:600}
+.button-sm{font-size:14px;line-height:20px;font-weight:600}
+.caption-4{font-size:12px;line-height:16px;font-weight:500}
+.muted{color:var(--muted)}
+
+.wrap{width:min(1080px,calc(100% - var(--s48)));margin-inline:auto}
+section{padding-block:var(--s96)}
+.reveal{opacity:0;transform:translateY(var(--s32));transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s8);padding:var(--s8) var(--s12);border-radius:8px;border:1px solid transparent;cursor:pointer;transition:background-color 300ms var(--ease),border-color 300ms var(--ease),transform 500ms var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:scale(0.98)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#7C3AED}
+.btn-outline{border-color:var(--line);background:transparent}
+.btn-outline:hover{background:var(--surface2)}
+.btn:disabled{opacity:.5;cursor:wait}
+
+/* nav */
+.nav{position:fixed;top:var(--s16);left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:var(--s24);padding:var(--s8);width:max-content;max-width:calc(100% - var(--s32));background:rgba(24,24,24,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:16px}
+.brand{display:inline-flex;align-items:center;gap:var(--s8);padding-inline:var(--s8);font-weight:700}
+.brand i{display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--accent);font-style:normal;font-size:14px;line-height:20px}
+.nav-links{display:flex;align-items:center;gap:var(--s4);list-style:none}
+.nav-links a:not(.btn){display:block;padding:var(--s8) var(--s12);border-radius:8px;color:var(--muted);transition:color 300ms var(--ease),background-color 300ms var(--ease)}
+.nav-links a:not(.btn):hover,.nav-links a[aria-current]{color:var(--text);background:var(--surface2)}
+.toggle{display:none;position:relative;width:40px;height:40px;border:0;border-radius:8px;background:transparent;cursor:pointer}
+.toggle span{position:absolute;left:var(--s12);right:var(--s12);height:2px;background:var(--text);border-radius:2px;transition:transform 500ms var(--ease)}
+.toggle span:first-child{top:16px}.toggle span:last-child{top:24px}
+.toggle[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg)}
+.toggle[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:center;gap:var(--s8);padding:var(--s96) var(--s24) var(--s48);background:rgba(0,0,0,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
+.menu.open{opacity:1;visibility:visible}
+.menu a,.menu button{opacity:0;transform:translateY(var(--s24));transition:opacity 500ms var(--ease),transform 500ms var(--ease);font-size:30px;line-height:36px;font-weight:600;text-align:left;padding:var(--s8) 0;background:none;border:0;cursor:pointer}
+.menu.open a,.menu.open button{opacity:1;transform:none;transition-delay:calc(var(--i)*60ms)}
+
+/* hero */
+.hero{padding-top:160px;padding-bottom:var(--s80);text-align:center}
+.hero h1{max-width:680px;margin-inline:auto;background:linear-gradient(to right,#FFFFFF,#9B9B9B);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{max-width:680px;margin:var(--s24) auto 0;color:var(--muted)}
+.hero-cta{display:flex;flex-direction:column;align-items:center;gap:var(--s16);margin-top:var(--s32)}
+.chip{display:inline-flex;align-items:center;gap:var(--s8);padding:var(--s4) var(--s12);border:1px solid var(--line);border-radius:16px;color:var(--muted)}
+.chip i{color:var(--accent-text)}
+.mock{max-width:480px;margin:var(--s64) auto 0;padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:24px;text-align:left}
+.mock-head{display:flex;justify-content:space-between;align-items:center;padding:var(--s8) var(--s8) var(--s16)}
+.mock-row{display:flex;align-items:center;gap:var(--s12);padding:var(--s12);background:var(--surface2);border:1px solid var(--line);border-radius:8px}
+.mock-row+.mock-row{margin-top:var(--s8)}
+.mock-row i{font-size:20px;color:var(--accent-text)}
+.mock-row .t{flex:1}
+.bar{height:var(--s4);margin:var(--s16) var(--s8) var(--s8);background:var(--surface2);border-radius:2px;overflow:hidden}
+.bar span{display:block;height:100%;width:66%;background:var(--accent);transform-origin:left;animation:fill 1400ms var(--ease) 400ms both}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* tagline */
+.tagline{padding-block:var(--s96)}
+.tagline p{max-width:680px;margin-inline:auto;text-align:center}
+.w{color:var(--text);opacity:.3;transition:opacity 500ms var(--ease)}
+.w.on{opacity:1}
+
+/* sections */
+.sec-head{max-width:680px;margin-bottom:var(--s48)}
+.sec-head p{margin-top:var(--s16);color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s16)}
+.card{padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:24px;transition:transform 500ms var(--ease),border-color 300ms var(--ease)}
+.card:hover{transform:translateY(-4px);border-color:#4a4a4a}
+.ico{display:grid;place-items:center;width:40px;height:40px;margin-bottom:var(--s16);border-radius:8px;background:var(--surface2);border:1px solid var(--line);font-size:20px;color:var(--accent-text)}
+.card h3{margin-bottom:var(--s8)}
+.card p{padding-inline:var(--s4)}
+.card .ico{margin-bottom:var(--s16)}
+.card h3,.card p{padding-inline:var(--s4)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s16)}
+.step .n{display:inline-block;margin-bottom:var(--s16);color:var(--accent-text)}
+.faq{max-width:720px}
+details{border-bottom:1px solid var(--line)}
+summary{display:flex;justify-content:space-between;gap:var(--s16);padding:var(--s24) 0;cursor:pointer;list-style:none;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary i{flex-shrink:0;transition:transform 500ms var(--ease)}
+details[open] summary i{transform:rotate(45deg)}
+details p{padding-bottom:var(--s24);color:var(--muted)}
+.cta{text-align:center}
+.cta h2{max-width:680px;margin-inline:auto}
+.cta .btn{margin-top:var(--s32)}
+footer{border-top:1px solid var(--line);padding-block:var(--s32)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:var(--s16);flex-wrap:wrap}
+
+/* modal */
+.backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s16);background:rgba(0,0,0,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
+.backdrop.open{opacity:1;visibility:visible}
+.modal{position:relative;width:min(100%,400px);padding:var(--s24);background:var(--surface);border:1px solid var(--line);border-radius:24px;transform:translateY(var(--s24));transition:transform 500ms var(--ease)}
+.backdrop.open .modal{transform:none}
+.x{position:absolute;top:var(--s16);right:var(--s16);width:40px;height:40px;border:0;border-radius:8px;background:transparent;cursor:pointer;font-size:20px}
+.x:hover{background:var(--surface2)}
+.modal h2{margin:var(--s8) 0}
+.modal label{display:block;margin-top:var(--s16)}
+.modal input{width:100%;margin-top:var(--s8);padding:var(--s12);background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.modal input:focus{border-color:var(--accent-text)}
+.modal .btn{width:100%;margin-top:var(--s24)}
+.msg{min-height:20px;margin-top:var(--s16)}
+.msg.err{color:#F87171}.msg.ok{color:#86EFAC}
+.switch{margin-top:var(--s16);text-align:center}
+.switch button{background:none;border:0;cursor:pointer;color:var(--accent-text);font-weight:600}
+
+@media(max-width:700px){
+ .nav-links{display:none}.toggle{display:block}.nav{gap:var(--s16)}
+ .heading-1{font-size:36px;line-height:40px}
+ .heading-2{font-size:30px;line-height:36px}
+ .heading-3{font-size:30px;line-height:36px}
+ section{padding-block:var(--s64)}
+ .hero{padding-top:128px}
+ .grid,.steps{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+ .reveal{transform:none;transition:opacity 300ms linear}
+ .bar span{animation:none}
+ .w{opacity:1;transition:none}
+ *{scroll-behavior:auto!important}
+ .menu a,.menu button{transform:none}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="Supro SMM home"><span class="brand-mark">S</span><span>SUPRO<span class="brand-light">SMM</span></span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav" id="mainNav">
-      <a href="#home" class="nav-link active">Home</a><a href="#services" class="nav-link">Services</a><a href="#process" class="nav-link">How it works</a><a href="#faq" class="nav-link">FAQ</a>
-      <a class="button button-small button-outline" href="#login" data-modal="login">Sign in</a>
-      <a class="button button-small button-primary" href="#services">Explore services <span>↗</span></a>
-    </nav>
-  </header>
+<a class="skip" href="#main">Skip to content</a>
 
-  <main>
-    <section class="hero section-wrap" id="home">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="eyebrow-dot"></span> SOCIAL MEDIA GROWTH, SIMPLIFIED</div>
-        <h1>Make your<br>presence <span class="gradient-text">matter.</span></h1>
-        <p class="hero-text">A smarter way to explore social media growth services. Clear choices, a simple experience, and everything in one place.</p>
-        <div class="hero-actions"><a class="button button-primary button-large" href="#services">Explore services <span>↗</span></a><a class="text-link" href="#process">See how it works <span>→</span></a></div>
-        <div class="hero-note"><span class="note-icon">✦</span> A clean, simple dashboard experience — built around you.</div>
+<header class="nav" id="top">
+  <a class="brand button-sm" href="#home"><i>S</i>Supro SMM</a>
+  <ul class="nav-links button-sm">
+    <li><a href="#home" aria-current="true">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How it works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a class="btn btn-outline" href="#" data-auth="login" id="navAuth">Sign in</a></li>
+  </ul>
+  <button class="toggle" id="toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+</header>
+
+<nav class="menu" id="menu" aria-label="Mobile">
+  <a href="#home" style="--i:0">Home</a>
+  <a href="#services" style="--i:1">Services</a>
+  <a href="#process" style="--i:2">How it works</a>
+  <a href="#faq" style="--i:3">FAQ</a>
+  <a href="#" data-auth="login" id="menuAuth" style="--i:4">Sign in</a>
+</nav>
+
+<main id="main">
+  <section class="hero" id="home">
+    <div class="wrap">
+      <h1 class="heading-1">Order social media services<br>from one simple dashboard</h1>
+      <p class="lead body-3">Pick a platform, add funds with bKash or Nagad, and place your order. Track every order from your account.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary button-md" href="#" data-auth="signup" id="heroCta">Create free account <i class="ph ph-arrow-right"></i></a>
+        <span class="chip caption-4"><i class="ph ph-device-mobile"></i>Pay with bKash or Nagad</span>
       </div>
-      <div class="hero-visual">
-        <div class="visual-orbit orbit-a"></div><div class="visual-orbit orbit-b"></div>
-        <div class="dashboard-card">
-          <div class="dash-top"><div><span class="tiny-label">OVERVIEW</span><h3>Your growth space</h3></div><span class="live-pill"><i></i> Demo preview</span></div>
-          <div class="metric-row"><div class="metric"><span class="metric-label">Services</span><strong>120<span>+</span></strong><small>Curated options</small></div><div class="metric"><span class="metric-label">Experience</span><strong>24<span>/7</span></strong><small>Browse anytime</small></div></div>
-          <div class="chart-area"><div class="chart-heading"><span>Activity overview</span><span class="chart-period">Sample data</span></div>
-            <div class="chart-bars"><i style="height:34%"></i><i style="height:51%"></i><i style="height:43%"></i><i style="height:67%"></i><i style="height:55%"></i><i style="height:82%"></i><i style="height:72%"></i><i style="height:96%"></i><i style="height:77%"></i><i style="height:100%"></i><i style="height:88%"></i><i style="height:94%"></i></div>
-            <div class="chart-days"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
-          </div>
-          <div class="dash-bottom"><span class="mini-avatar">S</span><span><b>Supro SMM</b><small>Designed for a smoother workflow</small></span><span class="arrow-circle">↗</span></div>
-        </div>
-        <div class="float-chip chip-top"><span class="chip-spark">✦</span><span><b>Simple</b><small>By design</small></span></div>
-        <div class="float-chip chip-bottom"><span class="chip-check">✓</span><span><b>One place</b><small>Easy to explore</small></span></div>
+      <div class="mock" aria-label="Example order status">
+        <div class="mock-head"><span class="title-2">Example order</span><span class="caption-4 muted">Status</span></div>
+        <div class="mock-row"><i class="ph ph-check-circle"></i><span class="t body-6">Order placed</span><span class="caption-4 muted">Done</span></div>
+        <div class="mock-row"><i class="ph ph-clock"></i><span class="t body-6">Processing</span><span class="caption-4 muted">In progress</span></div>
+        <div class="mock-row"><i class="ph ph-package"></i><span class="t body-6">Completed</span><span class="caption-4 muted">Next</span></div>
+        <div class="bar"><span></span></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="trust-strip section-wrap"><span>MADE FOR A BETTER SOCIAL EXPERIENCE</span><div><b>Thoughtful design</b><i></i><b>Clear services</b><i></i><b>Simple workflow</b></div></section>
+  <section class="tagline" aria-label="Our approach">
+    <div class="wrap"><p class="heading-3" id="tag">Growth should not feel complicated. Choose a service, pay your way, and watch every order move from placed to completed.</p></div>
+  </section>
 
-    <section class="section-wrap section-block" id="services">
-      <div class="section-heading"><div><div class="eyebrow">WHAT YOU CAN EXPLORE</div><h2>Services that fit<br><span class="gradient-text">your next move.</span></h2></div><p>Browse popular categories and find the service that matches your goals. This first version is a visual demo — no real orders are processed.</p></div>
-      <div class="service-grid">
-        <article class="service-card"><div class="service-icon icon-purple">◎</div><span class="card-kicker">01 / SOCIAL</span><h3>Instagram</h3><p>Explore profile and content growth service categories.</p><a href="#demo-order" class="card-link" data-service="Instagram">Explore category <span>↗</span></a></article>
-        <article class="service-card"><div class="service-icon icon-pink">▶</div><span class="card-kicker">02 / VIDEO</span><h3>YouTube</h3><p>Discover options for creators and video channels.</p><a href="#demo-order" class="card-link" data-service="YouTube">Explore category <span>↗</span></a></article>
-        <article class="service-card"><div class="service-icon icon-blue">f</div><span class="card-kicker">03 / COMMUNITY</span><h3>Facebook</h3><p>View sample categories for pages and communities.</p><a href="#demo-order" class="card-link" data-service="Facebook">Explore category <span>↗</span></a></article>
-        <article class="service-card"><div class="service-icon icon-cyan">♪</div><span class="card-kicker">04 / SHORT VIDEO</span><h3>TikTok</h3><p>See a clean overview of short-form video services.</p><a href="#demo-order" class="card-link" data-service="TikTok">Explore category <span>↗</span></a></article>
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2 class="heading-2">Built around how you actually pay</h2><p class="body-3">Five platforms, clear prices, and a wallet you top up when you need to.</p></div>
+      <div class="grid">
+        <article class="card reveal"><div class="ico"><i class="ph ph-tag"></i></div><h3 class="title-2">Prices you can read</h3><p class="body-6 muted">Every service shows its price per 1000 and its minimum and maximum quantity before you order.</p></article>
+        <article class="card reveal"><div class="ico"><i class="ph ph-wallet"></i></div><h3 class="title-2">One wallet</h3><p class="body-6 muted">Add funds once and spend them across Facebook, Instagram, TikTok, YouTube and Telegram services.</p></article>
+        <article class="card reveal"><div class="ico"><i class="ph ph-device-mobile"></i></div><h3 class="title-2">Local payments</h3><p class="body-6 muted">Send money with bKash or Nagad, submit your TrxID, and your balance is updated once it is approved.</p></article>
+        <article class="card reveal"><div class="ico"><i class="ph ph-receipt"></i></div><h3 class="title-2">Order history</h3><p class="body-6 muted">Your deposits and orders live in one dashboard, so you always know where things stand.</p></article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="feature-band section-wrap" id="process">
-      <div class="feature-orb"></div><div class="feature-content"><div class="eyebrow">A BETTER WAY TO BEGIN</div><h2>Less clutter.<br><span class="gradient-text">More clarity.</span></h2><p>Supro SMM brings the essentials into a focused, easy-to-navigate experience. Start by exploring categories, then move through a simple service journey.</p><a class="button button-primary" href="#services">Browse categories <span>↗</span></a></div>
-      <div class="steps"><div class="step"><span>01</span><div><h3>Choose a category</h3><p>Start with the platform you are interested in.</p></div><b>↗</b></div><div class="step"><span>02</span><div><h3>Review the details</h3><p>Compare sample service information clearly.</p></div><b>↗</b></div><div class="step"><span>03</span><div><h3>Continue with confidence</h3><p>In a future version, manage everything from your account.</p></div><b>↗</b></div></div>
-    </section>
-
-    <section class="section-wrap faq-section" id="faq">
-      <div class="section-heading"><div><div class="eyebrow">GOOD TO KNOW</div><h2>Questions, <span class="gradient-text">answered.</span></h2></div><p>Some details about this first design version.</p></div>
-      <div class="faq-list">
-        <details><summary>Is Supro SMM fully functional right now?<span>+</span></summary><p>Not yet. This is Phase 1: a responsive front-end design with demo interactions. Login, payments, wallet balances and real orders are not connected.</p></details>
-        <details><summary>Can I use this website on my phone?<span>+</span></summary><p>Yes. The layout is responsive and designed to work on mobile screens, including iPhone-sized displays.</p></details>
-        <details><summary>What comes next?<span>+</span></summary><p>Phase 2 can add secure authentication, a database, service management and an admin area. Payment and provider integrations should only be added after careful testing.</p></details>
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2 class="heading-2">How it works</h2></div>
+      <div class="steps">
+        <div class="step card reveal"><span class="n title-2">01</span><h3 class="title-2">Create your account</h3><p class="body-6 muted">Sign up with your email and confirm it.</p></div>
+        <div class="step card reveal"><span class="n title-2">02</span><h3 class="title-2">Add funds</h3><p class="body-6 muted">Send money by bKash or Nagad and submit your TrxID. The minimum deposit is ৳50.</p></div>
+        <div class="step card reveal"><span class="n title-2">03</span><h3 class="title-2">Place your order</h3><p class="body-6 muted">Choose a platform and service, enter your link and quantity, and follow the status.</p></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cta-section section-wrap"><div class="cta-inner"><div class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</div><h2>Build your presence.<br><span class="gradient-text">The smarter way.</span></h2><p>Explore the Supro SMM demo experience.</p><a href="#services" class="button button-primary button-large">Get started <span>↗</span></a><div class="cta-glow"></div></div></section>
-  </main>
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2 class="heading-2">Questions and answers</h2></div>
+      <div class="faq reveal">
+        <details><summary>How do I add funds?<i class="ph ph-plus"></i></summary><p>Send money to the bKash or Nagad number shown on the Add Funds page, then submit the amount, your number and the TrxID.</p></details>
+        <details><summary>Are deposits approved automatically?<i class="ph ph-plus"></i></summary><p>No. Each deposit is reviewed by an admin, and your balance is updated after approval.</p></details>
+        <details><summary>What is the minimum deposit?<i class="ph ph-plus"></i></summary><p>The minimum deposit is ৳50.</p></details>
+        <details><summary>Which platforms are available?<i class="ph ph-plus"></i></summary><p>Facebook, Instagram, TikTok, YouTube and Telegram.</p></details>
+        <details><summary>How are prices shown?<i class="ph ph-plus"></i></summary><p>Prices are listed per 1000 on each service, together with the minimum and maximum quantity you can order.</p></details>
+        <details><summary>Can I use Supro SMM on my phone?<i class="ph ph-plus"></i></summary><p>Yes. The site is designed to work on phone screens as well as desktop.</p></details>
+      </div>
+    </div>
+  </section>
 
-  <footer class="footer section-wrap"><a class="brand" href="#home"><span class="brand-mark">S</span><span>SUPRO<span class="brand-light">SMM</span></span></a><p>© <span id="year"></span> Supro SMM. Demo website — Phase 1.</p><a href="#home" class="back-top">Back to top ↑</a></footer>
+  <section class="cta">
+    <div class="wrap reveal">
+      <h2 class="heading-2">Ready when you are</h2>
+      <a class="btn btn-primary button-md" href="#" data-auth="signup">Create free account <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </section>
+</main>
 
-  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+<footer>
+  <div class="wrap">
+    <span class="body-6 muted">© <span id="year"></span> Supro SMM</span>
+    <a class="body-6 muted" href="#top">Back to top</a>
+  </div>
+</footer>
 
-  <div class="modal-mark">S</div>
-  <div class="eyebrow">SUPRO SMM ACCOUNT</div>
-
-  <h2 id="modalTitle">Welcome back.</h2>
-  <p id="authDescription">Sign in to your Supro SMM account.</p>
-
-  <form id="authForm">
-    <label id="fullNameLabel" hidden>
-      Full name
-      <input type="text" id="authFullName" placeholder="Your full name">
-    </label>
-
-    <label>
-      Email address
-      <input type="email" id="authEmail" placeholder="you@example.com" required>
-    </label>
-
-    <label>
-      Password
-      <input type="password" id="authPassword" placeholder="At least 6 characters" minlength="6" required>
-    </label>
-
-    <button class="button button-primary modal-submit" id="authSubmit" type="submit">
-      Sign in
-    </button>
-  </form>
-
-  <p class="modal-footnote">
-    <span id="authSwitchText">New to Supro SMM?</span>
-    <button type="button" id="authToggle">Create an account</button>
-  </p>
+<div class="backdrop" id="backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="x" id="mClose" aria-label="Close"><i class="ph ph-x"></i></button>
+    <h2 class="heading-4 title-2" id="mTitle" style="font-size:24px;line-height:32px;font-weight:600">Sign in</h2>
+    <p class="body-6 muted" id="mDesc">Sign in to your Supro SMM account.</p>
+    <form id="authForm" novalidate>
+      <label class="body-6" id="nameLabel" hidden>Full name<input type="text" id="aName" autocomplete="name"></label>
+      <label class="body-6">Email address<input type="email" id="aEmail" autocomplete="email" required></label>
+      <label class="body-6">Password<input type="password" id="aPass" autocomplete="current-password" minlength="6" required></label>
+      <button class="btn btn-primary button-md" id="aSubmit" type="submit">Sign in</button>
+      <div class="msg body-6" id="aMsg" role="status" aria-live="polite"></div>
+    </form>
+    <p class="switch body-6 muted"><span id="swText">New to Supro SMM?</span> <button type="button" id="swBtn">Create an account</button></p>
   </div>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const supabaseClient = window.supabase.createClient(
+  "https://cgkiddhxbkuvdyghlpfc.supabase.co",
+  "sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy"
+);
+const $ = (id) => document.getElementById(id);
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+$("year").textContent = new Date().getFullYear();
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="script.js"></script>
+/* mobile menu */
+const toggle = $("toggle"), menu = $("menu");
+function setMenu(open) {
+  menu.classList.toggle("open", open);
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  document.body.style.overflow = open ? "hidden" : "";
+}
+toggle.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
+menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+
+/* scroll reveals, once */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); revealObs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
+
+/* tagline: words activate one at a time */
+const tag = $("tag");
+tag.innerHTML = tag.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(" ");
+const words = tag.querySelectorAll(".w");
+if (reduce) {
+  words.forEach(w => w.classList.add("on"));
+} else {
+  const wordObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add("on");
+      else if (e.boundingClientRect.top > window.innerHeight * 0.5) e.target.classList.remove("on");
+    });
+  }, { rootMargin: "0px 0px -45% 0px", threshold: 0 });
+  words.forEach(w => wordObs.observe(w));
+}
+
+/* current section in nav */
+const links = [...document.querySelectorAll(".nav-links a[href^='#']:not([data-auth])")];
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    links.forEach(a => {
+      if (a.getAttribute("href") === "#" + e.target.id) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+["home", "services", "process", "faq"].forEach(id => spy.observe($(id)));
+
+/* auth modal */
+let mode = "login";
+const backdrop = $("backdrop"), form = $("authForm"), msg = $("aMsg");
+function setMsg(text, kind) { msg.textContent = text; msg.className = "msg body-6 " + (kind || ""); }
+function setMode(m) {
+  mode = m;
+  const s = m === "signup";
+  $("nameLabel").hidden = !s;
+  $("mTitle").textContent = s ? "Create account" : "Sign in";
+  $("mDesc").textContent = s ? "Create your Supro SMM account." : "Sign in to your Supro SMM account.";
+  $("aSubmit").textContent = s ? "Create account" : "Sign in";
+  $("swText").textContent = s ? "Already have an account?" : "New to Supro SMM?";
+  $("swBtn").textContent = s ? "Sign in" : "Create an account";
+  $("aPass").autocomplete = s ? "new-password" : "current-password";
+  setMsg("");
+}
+function openModal(m) {
+  setMenu(false); setMode(m);
+  backdrop.classList.add("open"); backdrop.setAttribute("aria-hidden", "false");
+  setTimeout(() => (m === "signup" ? $("aName") : $("aEmail")).focus(), 100);
+}
+function closeModal() { backdrop.classList.remove("open"); backdrop.setAttribute("aria-hidden", "true"); }
+document.querySelectorAll("[data-auth]").forEach(el => el.addEventListener("click", (ev) => {
+  if (el.dataset.dashboard) return;
+  ev.preventDefault(); openModal(el.dataset.auth);
+}));
+$("mClose").addEventListener("click", closeModal);
+backdrop.addEventListener("click", (ev) => { if (ev.target === backdrop) closeModal(); });
+document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") closeModal(); });
+$("swBtn").addEventListener("click", () => setMode(mode === "login" ? "signup" : "login"));
+
+form.addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  const email = $("aEmail").value.trim(), password = $("aPass").value, btn = $("aSubmit");
+  if (!/^\S+@\S+\.\S+$/.test(email)) { setMsg("Enter a valid email address.", "err"); return; }
+  if (password.length < 6) { setMsg("Password must be at least 6 characters.", "err"); return; }
+  btn.disabled = true; setMsg("");
+  try {
+    if (mode === "signup") {
+      const fullName = $("aName").value.trim();
+      if (!fullName) throw new Error("Enter your full name.");
+      const { error } = await supabaseClient.auth.signUp({
+        email, password,
+        options: { emailRedirectTo: "https://supro76p.github.io/Supro-smm/", data: { full_name: fullName } }
+      });
+      if (error) throw error;
+      form.reset(); setMode("login");
+      setMsg("Account created. Check your email to confirm it, then sign in.", "ok");
+    } else {
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      setMsg("Signed in. Opening your dashboard.", "ok");
+      setTimeout(() => { window.location.href = "dashboard.html"; }, 600);
+    }
+  } catch (e) {
+    setMsg(e.message || "Something went wrong. Try again.", "err");
+  } finally { btn.disabled = false; }
+});
+
+/* signed in visitors go straight to the dashboard */
+supabaseClient.auth.getSession().then(({ data }) => {
+  if (!data || !data.session) return;
+  [["navAuth", "Dashboard"], ["menuAuth", "Dashboard"], ["heroCta", "Open dashboard"]].forEach(([id, label]) => {
+    const el = $(id); if (!el) return;
+    el.href = "dashboard.html"; el.dataset.dashboard = "1";
+    el.firstChild.textContent = label + (id === "heroCta" ? " " : "");
+  });
+});
+</script>
 </body>
 </html>
