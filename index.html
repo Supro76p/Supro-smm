@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Instrument+Serif&family=Bricolage+Grotesque:wght@500;600&family=Unbounded:wght@500;600&family=Playfair+Display:wght@500;600&family=DM+Serif+Display&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
 :root{--s2:2px;--s4:4px;--s8:8px;--s12:12px;--s16:16px;--s24:24px;--s32:32px;--s40:40px;--s48:48px;--s64:64px;--s80:80px;--s96:96px;
@@ -177,6 +178,28 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:v
 .stats>div{padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:16px}
 .stats .num{color:var(--text)}
 @media(prefers-reduced-motion:reduce){.cloud{animation:none}.star{animation:none;opacity:.6}}
+
+/* cinematic hero scenes */
+.scenes{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.scene{position:absolute;inset:0;opacity:0;animation:scene 18s var(--ease) infinite;will-change:transform,opacity}
+.scene svg{display:block;width:100%;height:100%}
+.scene:nth-child(2){animation-delay:6s}.scene:nth-child(3){animation-delay:12s}
+.veil{position:absolute;inset:0;background:rgba(11,6,20,.5)}
+@keyframes scene{0%{opacity:0;transform:scale(1)}8%{opacity:1}33%{opacity:1}41%{opacity:0}100%{opacity:0;transform:scale(1.14)}}
+@keyframes lift{to{transform:none}}
+/* line by line heading reveal */
+.hero h1{animation:none;background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--text)}
+.line{display:block;overflow:hidden;padding:var(--s8) 0;margin:calc(var(--s8)*-1) 0}
+.line>span{display:block;font-family:'Syne',sans-serif;font-weight:700;background:linear-gradient(to right,#FFFFFF,#9B9B9B);-webkit-background-clip:text;background-clip:text;color:transparent;transform:translateY(115%);animation:lift 1000ms var(--ease) 80ms both}
+.line:nth-child(2)>span{animation-delay:260ms}
+/* one typeface per place */
+#tag{font-family:'Instrument Serif',serif;font-weight:400}
+#services .heading-2{font-family:'Bricolage Grotesque',sans-serif}
+#process .heading-2{font-family:'Unbounded',sans-serif;font-weight:500}
+#faq .heading-2{font-family:'Playfair Display',serif}
+.cta .heading-2{font-family:'DM Serif Display',serif;font-weight:400}
+.stats .num{font-family:'Space Grotesk',sans-serif}
+@media(prefers-reduced-motion:reduce){.scene{animation:none}.scene:first-child{opacity:1}.line>span{animation:none;transform:none}}
 @media(max-width:700px){
  .nav-links{display:none}.toggle{display:block}.nav{gap:var(--s16)}
  .heading-1{font-size:36px;line-height:40px}
@@ -222,9 +245,15 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:v
 
 <main id="main">
   <section class="hero" id="home">
+    <div class="scenes" aria-hidden="true">
+      <div class="scene"><svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="900" fill="#1C1233"/><circle cx="1180" cy="260" r="110" fill="#C4B5FD" opacity=".85"/><polygon points="0,900 0,560 220,420 420,540 640,360 900,560 1120,430 1360,580 1600,470 1600,900" fill="#2E1F4D"/><polygon points="0,900 0,700 260,600 520,720 800,620 1080,740 1360,650 1600,730 1600,900" fill="#140D24"/></svg></div>
+      <div class="scene"><svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="900" fill="#140D24"/><circle cx="420" cy="400" r="150" fill="#8B5CF6" opacity=".9"/><g fill="#2E1F4D"><rect x="60" y="520" width="130" height="380"/><rect x="230" y="420" width="110" height="480"/><rect x="380" y="560" width="150" height="340"/><rect x="580" y="360" width="120" height="540"/><rect x="740" y="500" width="160" height="400"/><rect x="940" y="440" width="110" height="460"/><rect x="1090" y="580" width="150" height="320"/><rect x="1280" y="380" width="120" height="520"/><rect x="1440" y="500" width="130" height="400"/></g><g fill="#1C1233"><rect x="0" y="680" width="260" height="220"/><rect x="300" y="720" width="220" height="180"/><rect x="560" y="660" width="260" height="240"/><rect x="860" y="700" width="240" height="200"/><rect x="1140" y="670" width="260" height="230"/><rect x="1440" y="720" width="160" height="180"/></g></svg></div>
+      <div class="scene"><svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="900" fill="#1C1233"/><circle cx="800" cy="430" r="130" fill="#A78BFA" opacity=".85"/><ellipse cx="800" cy="640" rx="1000" ry="70" fill="#2E1F4D"/><ellipse cx="400" cy="730" rx="900" ry="80" fill="#3B2A66"/><ellipse cx="1200" cy="810" rx="1000" ry="90" fill="#140D24"/></svg></div>
+      <div class="veil"></div>
+    </div>
     <div class="sky" id="sky" aria-hidden="true"></div>
     <div class="wrap">
-      <h1 class="heading-1">Order social media services<br>from one simple dashboard</h1>
+      <h1 class="heading-1"><span class="line"><span>Order social media services</span></span><span class="line"><span>from one simple dashboard</span></span></h1>
       <p class="lead body-3">Pick a platform, add funds with bKash or Nagad, and place your order. Track every order from your account.</p>
       <div class="hero-cta">
         <a class="btn btn-primary button-md" href="#" data-auth="signup" id="heroCta">Create free account <i class="ph ph-arrow-right"></i></a>
