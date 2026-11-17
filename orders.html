@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B0614">
+<title>Order history | Supro SMM</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238B5CF6'/%3E%3Ctext x='16' y='22' font-size='18' font-weight='700' text-anchor='middle' fill='white' font-family='sans-serif'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+:root{--s2:2px;--s4:4px;--s8:8px;--s12:12px;--s16:16px;--s24:24px;--s32:32px;--s40:40px;--s48:48px;--s64:64px;--s80:80px;--s96:96px;
+--bg:#0B0614;--surface:#140D24;--surface2:#1C1233;--line:#2E1F4D;--text:#F7F1FF;--muted:#A69AB8;--accent:#8B5CF6;--accent-text:#C4B5FD;--ease:cubic-bezier(0.22,1,0.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-size:16px;line-height:24px;overflow-x:hidden;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px}
+h1,h2,h3{text-wrap:balance;font-weight:600}
+p{text-wrap:pretty}
+.heading-2{font-size:48px;line-height:48px;font-weight:600}
+.heading-3{font-size:36px;line-height:40px;font-weight:600}
+.title-2{font-size:18px;line-height:28px;font-weight:500}
+.body-3{font-size:16px;line-height:24px}
+.body-6{font-size:14px;line-height:20px}
+.button-md{font-size:16px;line-height:24px;font-weight:600}
+.button-sm{font-size:14px;line-height:20px;font-weight:600}
+.caption-4{font-size:12px;line-height:16px;font-weight:500}
+.muted{color:var(--muted)}
+.orb{position:fixed;width:480px;height:480px;border-radius:50%;filter:blur(120px);opacity:.28;z-index:-1;pointer-events:none;will-change:transform}
+.o1{top:-160px;left:-160px;background:#7C3AED;animation:d1 16s cubic-bezier(.45,0,.55,1) infinite alternate}
+.o2{bottom:-200px;right:-200px;background:#5B21B6;animation:d2 20s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes d1{to{transform:translate(120px,80px)}}@keyframes d2{to{transform:translate(-120px,-80px)}}
+@keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes navin{from{opacity:0;transform:translate(-50%,-24px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes pulse{50%{opacity:.5}}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.nav{position:fixed;top:var(--s16);left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:var(--s16);padding:var(--s8);width:max-content;max-width:calc(100% - var(--s32));background:rgba(20,13,36,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:16px;animation:navin 700ms var(--ease) both}
+.brand{display:inline-flex;align-items:center;gap:var(--s8);padding-inline:var(--s8);font-weight:700}
+.brand i{display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--accent);font-style:normal;font-size:14px;line-height:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s8);padding:var(--s8) var(--s12);border-radius:8px;border:1px solid transparent;cursor:pointer;background:transparent;transition:background-color 300ms var(--ease),border-color 300ms var(--ease),transform 500ms var(--ease)}
+.btn:hover{transform:translateY(-1px)}.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#7C3AED}
+.btn-outline{border-color:var(--line)}.btn-outline:hover{background:var(--surface2)}
+.btn:disabled{opacity:.5;cursor:wait}
+.bal{display:inline-flex;align-items:center;gap:var(--s8);padding:var(--s8) var(--s12);border:1px solid var(--line);border-radius:8px;background:var(--surface2)}
+.bal i{color:var(--accent-text)}
+.wrap{width:min(1080px,calc(100% - var(--s48)));margin-inline:auto}
+.head{padding-top:128px;padding-bottom:var(--s32);max-width:680px}
+.head h1{animation:rise 800ms var(--ease) 100ms both}
+.head p{margin-top:var(--s16);color:var(--muted);animation:rise 800ms var(--ease) 220ms both}
+.tabs{display:flex;gap:var(--s8);overflow-x:auto;padding-bottom:var(--s8);margin-bottom:var(--s32);animation:rise 800ms var(--ease) 340ms both;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{display:inline-flex;align-items:center;gap:var(--s8);flex-shrink:0;padding:var(--s8) var(--s12);background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer;color:var(--muted);transition:background-color 300ms var(--ease),color 300ms var(--ease),transform 500ms var(--ease)}
+.tab:hover{color:var(--text)}.tab:active{transform:scale(.98)}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s16);padding-bottom:var(--s96)}
+.card{display:flex;flex-direction:column;padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:24px;animation:rise 700ms var(--ease) both;transition:transform 500ms var(--ease),border-color 300ms var(--ease)}
+.card:hover{transform:translateY(-4px);border-color:#5B3FA0}
+.tag{align-self:flex-start;padding:var(--s4) var(--s12);background:var(--surface2);border:1px solid var(--line);border-radius:8px;color:var(--accent-text)}
+.card h3{margin:var(--s16) var(--s4) var(--s8)}
+.card p{margin-inline:var(--s4);color:var(--muted);flex:1}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:var(--s12);margin-top:var(--s24);padding:var(--s8) var(--s4) 0}
+.price{font-weight:700}
+.sk{height:224px;background:var(--surface);border:1px solid var(--line);border-radius:24px;animation:pulse 1400ms cubic-bezier(.45,0,.55,1) infinite}
+.empty{grid-column:1/-1;padding:var(--s48) var(--s24);text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:24px}
+.empty i{font-size:32px;color:var(--accent-text)}
+.backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s16);background:rgba(11,6,20,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity 500ms var(--ease),visibility 500ms}
+.backdrop.open{opacity:1;visibility:visible}
+.modal{position:relative;width:min(100%,440px);padding:var(--s24);background:var(--surface);border:1px solid var(--line);border-radius:24px;transform:translateY(var(--s32));transition:transform 500ms var(--ease)}
+.backdrop.open .modal{transform:none}
+.x{position:absolute;top:var(--s16);right:var(--s16);width:40px;height:40px;border:0;border-radius:8px;background:transparent;cursor:pointer;font-size:20px}
+.x:hover{background:var(--surface2)}
+.modal h2{font-size:24px;line-height:32px;margin:var(--s8) var(--s40) var(--s4) 0}
+.modal label{display:block;margin-top:var(--s16)}
+.modal input{width:100%;margin-top:var(--s8);padding:var(--s12);background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.modal input:focus{border-color:var(--accent-text)}
+.hint{margin-top:var(--s4);color:var(--muted)}
+.sum{display:flex;justify-content:space-between;align-items:center;margin-top:var(--s24);padding:var(--s16);background:var(--surface2);border:1px solid var(--line);border-radius:16px}
+.charge{font-size:30px;line-height:36px;font-weight:600}
+.modal .btn.full{width:100%;margin-top:var(--s16)}
+.msg{min-height:20px;margin-top:var(--s12)}
+.msg.err{color:#F87171}.msg a{color:var(--accent-text);font-weight:600}
+.done{display:none;text-align:center;padding:var(--s24) 0 var(--s8)}
+.done i{display:inline-block;font-size:56px;color:#86EFAC;animation:pop 700ms var(--ease) both}
+.done h2{margin:var(--s16) 0 var(--s8)}
+.done .row{display:flex;gap:var(--s8);justify-content:center;margin-top:var(--s24);flex-wrap:wrap}
+.modal.finished .form{display:none}.modal.finished .done{display:block}
+html.auth-pending body{visibility:hidden}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+ .heading-2{font-size:30px;line-height:36px}
+ .grid{grid-template-columns:1fr}.head{padding-top:112px}.brand span{display:none}
+ .backdrop{place-items:end center;padding:0}
+ .modal{border-radius:24px 24px 0 0;width:100%}
+}
+@media(prefers-reduced-motion:reduce){.orb{animation:none}.nav,.head h1,.head p,.tabs,.card{animation:none}.sk{animation:none}.done i{animation:none}.modal,.backdrop{transition:opacity 300ms linear}}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s16);margin-bottom:var(--s32);animation:rise 800ms var(--ease) 340ms both}
+.stat{padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:24px}
+.stat .n{margin-top:var(--s4)}
+.list{display:grid;gap:var(--s16);padding-bottom:var(--s96);max-width:760px}
+.ord{padding:var(--s16);background:var(--surface);border:1px solid var(--line);border-radius:24px;animation:rise 700ms var(--ease) both;transition:transform 500ms var(--ease),border-color 300ms var(--ease)}
+.ord:hover{transform:translateY(-4px);border-color:#5B3FA0}
+.ord .top{display:flex;justify-content:space-between;align-items:center;gap:var(--s12);margin:0 var(--s4)}
+.ord h3{margin:var(--s12) var(--s4) var(--s4)}
+.ord .lk{margin:0 var(--s4);color:var(--muted);overflow-wrap:anywhere}
+.ord .meta{display:flex;flex-wrap:wrap;gap:var(--s8);margin-top:var(--s16)}
+.ord .meta span{padding:var(--s4) var(--s12);background:var(--surface2);border:1px solid var(--line);border-radius:8px}
+.badge{padding:var(--s4) var(--s12);border-radius:8px;border:1px solid var(--line);background:var(--surface2);color:var(--accent-text)}
+.badge.completed{color:#86EFAC}.badge.processing,.badge.in_progress{color:#93C5FD}.badge.partial{color:#FCD34D}.badge.canceled,.badge.failed{color:#F87171}
+.empty .btn{margin-top:var(--s24)}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.stat .heading-3{font-size:30px;line-height:36px}}
+@media(prefers-reduced-motion:reduce){.stats,.ord{animation:none}}
+</style>
+<script>document.documentElement.classList.add("auth-pending");</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="orb o1" aria-hidden="true"></div><div class="orb o2" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand button-sm" href="dashboard.html"><i>S</i><span>Supro SMM</span></a>
+  <a class="btn btn-outline button-sm" href="services.html">Services</a>
+  <a class="bal button-sm" href="add-funds.html" aria-label="Add funds"><i class="ph ph-wallet"></i><span id="bal">৳0.00</span></a>
+</header>
+
+<main class="wrap">
+  <section class="head">
+    <h1 class="heading-2">Order history</h1>
+    <p class="body-3">Every order you place appears here with its current status.</p>
+  </section>
+
+  <section class="stats" aria-label="Summary">
+    <div class="stat"><div class="caption-4 muted">Orders</div><div class="heading-3 n" id="sCount">0</div></div>
+    <div class="stat"><div class="caption-4 muted">Total spent</div><div class="heading-3 n" id="sSpent">৳0</div></div>
+  </section>
+
+  <div class="list" id="list" aria-live="polite"></div>
+</main>
+
+<script>
+const supabaseClient = window.supabase.createClient(
+  "https://cgkiddhxbkuvdyghlpfc.supabase.co",
+  "sb_publishable_iDXmzZPXb4u1BtkRR1D2QQ_9wR-zsoy"
+);
+const $ = (id) => document.getElementById(id);
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const money = (v) => "৳" + Number(v).toFixed(2);
+const labels = { pending: "Pending", processing: "Processing", in_progress: "In progress", completed: "Completed", partial: "Partial", canceled: "Canceled", failed: "Failed" };
+const list = $("list");
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+
+function countUp(node, end, fmt) {
+  if (reduce) { node.textContent = fmt(end); return; }
+  const t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - t0) / 1200, 1);
+    node.textContent = fmt(end * (1 - Math.pow(1 - p, 4)));
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+
+function skeletons() {
+  list.replaceChildren(...Array.from({ length: 3 }, () => { const d = el("div", "sk"); d.style.height = "160px"; return d; }));
+}
+
+function renderEmpty() {
+  const box = el("div", "empty");
+  const h = el("h3", "title-2", "No orders yet");
+  h.style.marginTop = "12px";
+  const a = el("a", "btn btn-primary button-md", "Browse services");
+  a.href = "services.html";
+  box.append(el("i", "ph ph-package"), h, el("p", "body-6 muted", "When you place your first order it will show up here."), a);
+  list.replaceChildren(box);
+}
+
+function render(orders) {
+  if (!orders.length) { renderEmpty(); return; }
+  list.replaceChildren(...orders.map((o, i) => {
+    const card = el("article", "ord");
+    card.style.animationDelay = Math.min(i * 60, 400) + "ms";
+    const top = el("div", "top");
+    top.append(el("span", "caption-4 muted", "Order #" + o.id), el("span", "badge caption-4 " + o.status, labels[o.status] || o.status));
+    const svc = o.services && o.services.name ? o.services.name : "Service";
+    const meta = el("div", "meta");
+    meta.append(
+      el("span", "caption-4", "Quantity " + Number(o.quantity).toLocaleString("en-US")),
+      el("span", "caption-4", money(o.charge)),
+      el("span", "caption-4", new Date(o.created_at).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }))
+    );
+    card.append(top, el("h3", "title-2", svc), el("p", "lk body-6", o.link), meta);
+    return card;
+  }));
+}
+
+(async function init() {
+  try {
+    const { data, error } = await supabaseClient.auth.getSession();
+    if (error || !data.session) { window.location.replace("index.html"); return; }
+    const uid = data.session.user.id;
+    document.documentElement.classList.remove("auth-pending");
+    skeletons();
+
+    const [ordersRes, walletRes] = await Promise.all([
+      supabaseClient.from("orders")
+        .select("id, link, quantity, charge, status, created_at, services(name, platform)")
+        .eq("user_id", uid).order("created_at", { ascending: false }).limit(50),
+      supabaseClient.from("wallets").select("balance").eq("user_id", uid).maybeSingle()
+    ]);
+
+    $("bal").textContent = money(walletRes.data ? walletRes.data.balance : 0);
+
+    if (ordersRes.error) {
+      console.error(ordersRes.error);
+      const box = el("div", "empty");
+      box.append(el("h3", "title-2", "Orders did not load"), el("p", "body-6 muted", "Check your connection and refresh the page."));
+      list.replaceChildren(box);
+      return;
+    }
+    const orders = ordersRes.data || [];
+    render(orders);
+    countUp($("sCount"), orders.length, (v) => String(Math.round(v)));
+    const spent = orders.reduce((sum, o) => sum + Number(o.charge), 0);
+    countUp($("sSpent"), spent, (v) => "৳" + v.toFixed(2));
+  } catch (e) { console.error(e); window.location.replace("index.html"); }
+})();
+</script>
+</body>
+</html>
