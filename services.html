@@ -262,7 +262,9 @@ $("orderForm").addEventListener("submit", async (e) => {
   if (link.length < 5) { setMsg("Enter the link or username for this order.", true); return; }
   if (!Number.isInteger(qty) || qty < s.min_qty || qty > s.max_qty) { setMsg("Quantity must be between " + num(s.min_qty) + " and " + num(s.max_qty) + ".", true); return; }
   btn.disabled = true; btn.textContent = "Placing order..."; setMsg("");
-  const { data, error } = await supabaseClient.rpc("place_order", { p_service_id: s.id, p_link: link, p_quantity: qty });
+  const res = await supabaseClient.functions.invoke("smmgen", { body: { action: "place_order", service_id: s.id, link, quantity: qty } });
+  const data = res.data && res.data.ok ? res.data.order_id : null;
+  const error = res.error ? { message: "The order could not be placed. Try again." } : (res.data && !res.data.ok ? { message: res.data.error } : null);
   btn.disabled = false; btn.textContent = "Place order";
   if (error) {
     console.error(error);
