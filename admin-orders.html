@@ -148,6 +148,7 @@ select{padding:var(--s8) var(--s12);background:var(--bg);border:1px solid var(--
     <div class="stat"><div class="caption-4 muted">Pending value</div><div class="heading-3 n" id="sValue">৳0</div></div>
   </section>
 
+  <div class="ctl" style="margin-bottom:24px"><button class="btn btn-outline button-sm" id="syncBtn" type="button"><i class="ph ph-arrows-clockwise"></i>Sync statuses</button></div>
   <div class="tabs" id="tabs" role="group" aria-label="Filter">
     <button class="tab button-sm" data-f="all">All</button>
     <button class="tab button-sm" data-f="pending">Pending</button>
@@ -277,6 +278,13 @@ async function load() {
   render();
 }
 
+$("syncBtn").addEventListener("click", async () => {
+  const b = $("syncBtn"); b.disabled = true;
+  const { data, error } = await supabaseClient.functions.invoke("smmgen", { body: { action: "sync_status" } });
+  b.disabled = false;
+  if (error || !data || !data.ok) { toast((data && data.error) || "Sync did not work. Try again."); return; }
+  toast("Checked " + data.checked + " orders, " + data.changed + " updated."); await load();
+});
 (async function init() {
   try {
     const { data, error } = await supabaseClient.auth.getSession();
