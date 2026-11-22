@@ -51,7 +51,6 @@ Deno.serve(async (req) => {
 
       const { data: o } = await admin.from("orders")
         .select("id, charge, quantity, link, services(provider_service_id)").eq("id", oid).single();
-      // deppli: services relation can come back as object
       const pid = (o as any)?.services?.provider_service_id;
       if (!pid) return json({ ok: true, order_id: oid }); // demo service, pending thake
 
