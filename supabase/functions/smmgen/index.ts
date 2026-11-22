@@ -51,6 +51,7 @@ Deno.serve(async (req) => {
 
       const { data: o } = await admin.from("orders")
         .select("id, charge, quantity, link, services(provider_service_id)").eq("id", oid).single();
+      // deppli: services relation can come back as object
       const pid = (o as any)?.services?.provider_service_id;
       if (!pid) return json({ ok: true, order_id: oid }); // demo service, pending thake
 
@@ -74,8 +75,8 @@ Deno.serve(async (req) => {
     if (!me || me.role !== "admin") return json({ ok: false, error: "Not allowed." });
 
     if (action === "sync_services") {
-      const mult = Number(body.multiplier);
-      if (!Number.isFinite(mult) || mult <= 0) return json({ ok: false, error: "Enter a valid multiplier." });
+      const costRate = Number(body.cost_rate), markup = Number(body.markup);
+      if (!(costRate > 0) || !(markup >= 1)) return json({ ok: false, error: "Enter the cost rate and a profit multiplier of 1 or more." });
       const list = await provider({ action: "services" });
       if (!Array.isArray(list)) return json({ ok: false, error: "Provider did not return a service list." });
 
@@ -93,7 +94,8 @@ Deno.serve(async (req) => {
           provider_service_id: String(s.service), platform,
           category: String(s.category).slice(0, 80), name: String(s.name).slice(0, 200),
           description: String(s.category).slice(0, 200),
-          rate_per_1000: Math.round(Number(s.rate) * mult * 10000) / 10000, min_qty: min, max_qty: max,
+          cost_per_1000: Math.round(Number(s.rate) * costRate * 10000) / 10000,
+          rate_per_1000: Math.round(Number(s.rate) * costRate * markup * 10000) / 10000, min_qty: min, max_qty: max,
         };
         if (have.has(row.provider_service_id)) update.push(row); else fresh.push({ ...row, is_active: false });
       }
