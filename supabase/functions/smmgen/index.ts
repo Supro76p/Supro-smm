@@ -79,8 +79,15 @@ Deno.serve(async (req) => {
       const list = await provider({ action: "services" });
       if (!Array.isArray(list)) return json({ ok: false, error: "Provider did not return a service list." });
 
-      const { data: existing } = await admin.from("services").select("provider_service_id").not("provider_service_id", "is", null);
-      const have = new Set((existing ?? []).map((r: any) => r.provider_service_id));
+      // 1000 er beshi row hole page kore sob id ana (Supabase ek bare 1000 er beshi dey na)
+      const have = new Set<string>();
+      for (let from = 0; ; from += 1000) {
+        const { data: page, error: pe } = await admin.from("services").select("provider_service_id")
+          .not("provider_service_id", "is", null).order("id").range(from, from + 999);
+        if (pe) { console.error(pe); return json({ ok: false, error: "Could not read saved services." }); }
+        (page ?? []).forEach((r: any) => have.add(r.provider_service_id));
+        if (!page || page.length < 1000) break;
+      }
       const fresh: any[] = [], update: any[] = [];
       for (const s of list) {
         if (String(s.type ?? "Default").toLowerCase() !== "default") continue;
@@ -98,10 +105,14 @@ Deno.serve(async (req) => {
         };
         if (have.has(row.provider_service_id)) update.push(row); else fresh.push({ ...row, is_active: false });
       }
-      for (let i = 0; i < fresh.length; i += 500)
-        await admin.from("services").insert(fresh.slice(i, i + 500));
-      for (let i = 0; i < update.length; i += 500)
-        await admin.from("services").upsert(update.slice(i, i + 500), { onConflict: "provider_service_id" });
+      for (let i = 0; i < fresh.length; i += 500) {
+        const { error: e1 } = await admin.from("services").insert(fresh.slice(i, i + 500));
+        if (e1) { console.error(e1); return json({ ok: false, error: "Saving new services failed: " + e1.message }); }
+      }
+      for (let i = 0; i < update.length; i += 500) {
+        const { error: e2 } = await admin.from("services").upsert(update.slice(i, i + 500), { onConflict: "provider_service_id" });
+        if (e2) { console.error(e2); return json({ ok: false, error: "Updating services failed: " + e2.message }); }
+      }
       return json({ ok: true, added: fresh.length, updated: update.length });
     }
 
