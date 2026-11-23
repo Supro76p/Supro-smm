@@ -31,6 +31,14 @@ const statusMap: Record<string, string> = {
 };
 const platforms = ["facebook", "instagram", "tiktok", "youtube", "telegram"];
 
+// Provider er text e emoji/control character thakle JSON bhenge jay, tai sob porishkar kore nei
+const clean = (v: unknown, n: number) =>
+  String(v ?? "")
+    .replace(/[\u0000-\u001f]/g, " ")
+    .replace(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/g, "")
+    .slice(0, n)
+    .replace(/[\ud800-\udbff]$/, "");
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   try {
@@ -98,8 +106,8 @@ Deno.serve(async (req) => {
         if (!(min > 0) || !(max >= min)) continue;
         const row: any = {
           provider_service_id: String(s.service), platform,
-          category: String(s.category).slice(0, 80), name: String(s.name).slice(0, 200),
-          description: String(s.category).slice(0, 200),
+          category: clean(s.category, 80), name: clean(s.name, 200),
+          description: clean(s.category, 200),
           cost_per_1000: Math.round(Number(s.rate) * costRate * 10000) / 10000,
           rate_per_1000: Math.round(Number(s.rate) * costRate * markup * 10000) / 10000, min_qty: min, max_qty: max,
         };
